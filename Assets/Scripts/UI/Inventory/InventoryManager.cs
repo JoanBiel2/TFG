@@ -7,6 +7,7 @@ public class InventoryManager : MonoBehaviour
 
     private PlayerControls playercon;
     private InputAction menu;
+    public ItemSlot[] itemslot;
 
     [SerializeField] private GameObject InvUI;
     [SerializeField] private bool IsActive;
@@ -51,8 +52,15 @@ public class InventoryManager : MonoBehaviour
         InvUI.SetActive(false);
         IsActive = false;
     }
-    public void AddItem(string name, int quant, Mesh mesh)
+    public void AddItem(string name, int quant, Mesh mesh, Sprite sprite)
     {
-        Debug.Log("name = " + name);
+        for (int i = 0; i < itemslot.Length; i++)
+        {
+            if (itemslot[i].isFull == false)
+            {
+                itemslot[i].AddItem(name, mesh, sprite);
+                return;
+            }
+        }
     }
 }
