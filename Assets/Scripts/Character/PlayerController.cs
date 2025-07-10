@@ -31,8 +31,19 @@ public class PlayerController : MonoBehaviour
         float speed;
         if (is_running) speed = run;
         else speed = walk;
-        
-        rb.linearVelocity = (new Vector3(input.x, 0f, input.y) * speed);
+
+        Vector3 move = new Vector3(input.x, 0f, input.y);
+        Vector3 moveDir = move.normalized;
+
+        // Aplicar movimiento
+        rb.linearVelocity = moveDir * speed;
+
+        // Rotar hacia la dirección de movimiento si hay input
+        if (moveDir != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(moveDir);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
+        }
     }
 
 }
