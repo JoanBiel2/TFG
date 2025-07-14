@@ -1515,10 +1515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textcomponent: {fileID: 380672183}
-  lines:
-  - asdasd
-  - asdasd
-  - asdasdas
+  lines: []
   textSpeed: 0.05
 --- !u!114 &787746769
 MonoBehaviour:
@@ -3492,9 +3489,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lines:
-  - A
-  - AA
-  - AAA
+  - Hola Buenas
+  - Karballo
+  - Karballez
   dialogueManager: {fileID: 787746768}
 --- !u!1001 &1848280074
 PrefabInstance:
