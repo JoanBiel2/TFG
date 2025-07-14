@@ -28,7 +28,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         if (pi.actions["Interact"].IsPressed()) //Hace que vuelva a empezar
         {
             Debug.Log(index);
-            HandleAdvance();
+            //HandleAdvance();
         }
     }
     public void OnPointerClick(PointerEventData eventData)
