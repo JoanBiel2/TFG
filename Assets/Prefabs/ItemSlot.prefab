@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &186372023778679713
 RectTransform:
   m_ObjectHideFlags: 0
@@ -241,6 +241,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Itemname: Karballo
-  Itemsprite: {fileID: 0}
+  Itemsprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   isFull: 0
   ItemImage: {fileID: 1419107664478636349}
+  selectedShader: {fileID: 1247738908701336955}
+  itemSelected: 0

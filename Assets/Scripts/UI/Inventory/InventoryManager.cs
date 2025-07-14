@@ -52,15 +52,24 @@ public class InventoryManager : MonoBehaviour
         InvUI.SetActive(false);
         IsActive = false;
     }
-    public void AddItem(string name, int quant, Mesh mesh, Sprite sprite)
+    public void AddItem(string name, int quant, Sprite sprite, string desc)
     {
         for (int i = 0; i < itemslot.Length; i++)
         {
             if (itemslot[i].isFull == false)
             {
-                itemslot[i].AddItem(name, mesh, sprite);
+                itemslot[i].AddItem(name, sprite, desc);
                 return;
             }
+        }
+    }
+
+    public void DeselectAllSlots()
+    {
+        for (int i = 0; i < itemslot.Length; i++)
+        {
+            itemslot[i].selectedShader.SetActive(false);
+            itemslot[i].itemSelected = false;
         }
     }
 }
