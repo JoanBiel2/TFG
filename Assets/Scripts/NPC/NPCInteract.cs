@@ -1,29 +1,33 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Splines;
 
 public class NPCInteract : MonoBehaviour
 {
     private PlayerInput pi;
     private bool playernear = false;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    public string[] lines;
+
+    [SerializeField] private Dialogue dialogueManager;
     void Start()
     {
         pi = GameObject.Find("Player").GetComponentInChildren<PlayerInput>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (playernear && pi.actions["Interact"].IsPressed()) //Cuando el personaje este en el area de colision, deberia de hablar con el NPC
+        if (playernear && pi.actions["Interact"].IsPressed())
         {
-            Debug.Log("KArballo"); 
+            if (dialogueManager != null)
+            {
+                dialogueManager.StartDialogueFromNPC(lines);
+            }
         }
     }
+
     private void OnTriggerEnter(Collider collision)
-    //Hacer que aparezca un panel donde indique cuando se puede recoger el objeto
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             playernear = true;
         }
@@ -31,7 +35,7 @@ public class NPCInteract : MonoBehaviour
 
     private void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.CompareTag("Player"))
         {
             playernear = false;
         }
