@@ -391,8 +391,12 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f277aa25-92ca-488f-a0c8-4f943bfd657a
     m_ActionName: 'UI/Inventory[/Keyboard/tab]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d36a59a4-5dfb-40e3-9797-07e98c1ee25f
+    m_ActionName: 'DialogueControl/Pass[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 330585545}
