@@ -25,10 +25,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     // Update is called once per frame
     void Update()
     {
-        if (pi.actions["Interact"].IsPressed()) //Hace que vuelva a empezar
+        if (pi.actions["Next"].IsPressed()) //Hace que vuelva a empezar
         {
             Debug.Log(index);
-            //HandleAdvance();
+            HandleAdvance();
         }
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -46,6 +46,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         index = 0;
         gameObject.SetActive(true);
         StartCoroutine(TypeLine());
+        pi.SwitchCurrentActionMap("DialogueControl");
     }
 
     IEnumerator TypeLine()
@@ -67,6 +68,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         else
         {
             gameObject.SetActive(false);
+            pi.SwitchCurrentActionMap("Player");
         }
     }
 
