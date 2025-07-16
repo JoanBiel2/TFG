@@ -16,7 +16,7 @@ public class NPCInteract : MonoBehaviour
 
     void Update()
     {
-        if (playernear && pi.actions["Interact"].WasPressedThisFrame())
+        if (playernear && pi.actions["Interact"].IsPressed())
         {
             if (dialogueManager != null)
             {

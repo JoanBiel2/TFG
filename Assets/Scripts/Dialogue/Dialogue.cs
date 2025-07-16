@@ -20,9 +20,23 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        pi = GameObject.Find("Player").GetComponentInChildren<PlayerInput>();
+        TryGetPlayerInput();
     }
-    //Se llama cada vez que se da click al ratón
+
+    // Método para obtener PlayerInput de forma segura
+    private bool TryGetPlayerInput()
+    {
+        if (pi == null)
+        {
+            GameObject player = GameObject.Find("Player");
+            if (player != null)
+            {
+                pi = player.GetComponentInChildren<PlayerInput>();
+            }
+        }
+        return pi != null;
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -33,12 +47,17 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     public void StartDialogueFromNPC(string[] newLines)
     {
-        lines = newLines;
         textcomponent.text = string.Empty;
+        lines = newLines;
         index = 0;
         gameObject.SetActive(true);
         StartCoroutine(TypeLine());
-        pi.SwitchCurrentActionMap("DialogueControl"); //Principalmente, para que el jugador no pueda moverse
+
+        // Verificar PlayerInput abans de cambiar el ActionMap
+        if (TryGetPlayerInput())
+        {
+            pi.SwitchCurrentActionMap("DialogueControl");
+        }
     }
 
     IEnumerator TypeLine()
