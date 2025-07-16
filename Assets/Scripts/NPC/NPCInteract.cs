@@ -6,7 +6,7 @@ public class NPCInteract : MonoBehaviour
     private PlayerInput pi;
     private bool playernear = false;
 
-    public string[] lines;
+    public DialogueLine[] dialogueLines; //Nombre y linea de dialogo (de momento)
 
     [SerializeField] private Dialogue dialogueManager;
     void Start()
@@ -20,7 +20,7 @@ public class NPCInteract : MonoBehaviour
         {
             if (dialogueManager != null)
             {
-                dialogueManager.StartDialogueFromNPC(lines);
+                dialogueManager.StartDialogueFromNPC(dialogueLines);
             }
         }
     }

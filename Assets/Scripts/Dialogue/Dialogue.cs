@@ -7,7 +7,8 @@ using UnityEngine.InputSystem;
 public class Dialogue : MonoBehaviour, IPointerClickHandler
 {
     public TextMeshProUGUI textcomponent;
-    public string[] lines; //Hay que sacarlo del NPC
+    public TextMeshProUGUI namecomponent;
+    public DialogueLine[] dialogueLines;
     public float textSpeed;
 
     private PlayerInput pi;
@@ -37,6 +38,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         return pi != null;
     }
 
+    //Avanzar el dialogo con el click izquierdo (El botón de Next se hace desde los eventos en el inspector)
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -45,10 +47,11 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void StartDialogueFromNPC(string[] newLines)
+    public void StartDialogueFromNPC(DialogueLine[] newlines)
     {
         textcomponent.text = string.Empty;
-        lines = newLines;
+        namecomponent.text = string.Empty;
+        dialogueLines = newlines;
         index = 0;
         gameObject.SetActive(true);
         StartCoroutine(TypeLine());
@@ -62,7 +65,8 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     IEnumerator TypeLine()
     {
-        foreach (char c in lines[index].ToCharArray())
+        namecomponent.text = dialogueLines[index].speakerName;
+        foreach (char c in dialogueLines[index].text.ToCharArray())
         {
             textcomponent.text += c;
             yield return new WaitForSeconds(textSpeed);
@@ -70,10 +74,11 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     }
     void NextLine()
     {
-        if (index < lines.Length - 1)
+        if (index < dialogueLines.Length - 1)
         {
             index++;
             textcomponent.text = string.Empty;
+            namecomponent.text = string.Empty;
             StartCoroutine(TypeLine());
         }
         else
@@ -89,14 +94,15 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
         lastAdvanceTime = Time.time;
 
-        if (textcomponent.text == lines[index])
+        if (textcomponent.text == dialogueLines[index].text)
         {
             NextLine();
         }
         else
         {
             StopAllCoroutines();
-            textcomponent.text = lines[index];
+            textcomponent.text = dialogueLines[index].text;
+            namecomponent.text = dialogueLines[index].speakerName;
         }
     }
 }
