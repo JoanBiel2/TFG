@@ -14,23 +14,15 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     private int index;
 
+    private float lastAdvanceTime = 0f;
+    private float advanceDelay = 0.2f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         pi = GameObject.Find("Player").GetComponentInChildren<PlayerInput>();
-        //textcomponent.text = string.Empty;
-        //StartDialogue();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (pi.actions["Next"].IsPressed()) //Hace que vuelva a empezar
-        {
-            Debug.Log(index);
-            HandleAdvance();
-        }
-    }
+    //Se llama cada vez que se da click al ratón
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -46,7 +38,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         index = 0;
         gameObject.SetActive(true);
         StartCoroutine(TypeLine());
-        pi.SwitchCurrentActionMap("DialogueControl");
+        pi.SwitchCurrentActionMap("DialogueControl"); //Principalmente, para que el jugador no pueda moverse
     }
 
     IEnumerator TypeLine()
@@ -71,9 +63,13 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             pi.SwitchCurrentActionMap("Player");
         }
     }
-
-    void HandleAdvance()
+    public void HandleAdvance()
     {
+        if (Time.time - lastAdvanceTime < advanceDelay)
+            return;
+
+        lastAdvanceTime = Time.time;
+
         if (textcomponent.text == lines[index])
         {
             NextLine();

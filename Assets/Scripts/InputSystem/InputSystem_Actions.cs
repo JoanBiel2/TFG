@@ -98,7 +98,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Look"",
@@ -115,7 +115,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""852140f2-7766-474d-8707-702459ba45f3"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press(pressPoint=20)"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -409,7 +409,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""id"": ""d36a59a4-5dfb-40e3-9797-07e98c1ee25f"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press(pressPoint=20,behavior=1)"",
                     ""initialStateCheck"": false
                 }
             ],
