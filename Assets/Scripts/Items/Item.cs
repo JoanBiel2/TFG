@@ -29,6 +29,7 @@ public class Item : MonoBehaviour
         pi = GameObject.Find("Player").GetComponentInChildren<PlayerInput>();
         playernear = false;
         prompt.gameObject.SetActive(false);
+        prompt.transform.localPosition = new Vector3(0, 2f, 0);
     }
     // Update is called once per frame
     private void Update()
