@@ -8,7 +8,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 {
     public TextMeshProUGUI textcomponent;
     public TextMeshProUGUI namecomponent;
-    public DialogueLine[] dialogueLines;
+    private DialogueLine[] dialogueLines;
     public float textSpeed;
 
     private PlayerInput pi;
