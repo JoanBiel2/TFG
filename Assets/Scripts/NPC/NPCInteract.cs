@@ -7,13 +7,18 @@ public class NPCInteract : MonoBehaviour
     private PlayerInput pi;
     private bool playernear = false;
 
-    public DialogueLine[] dialogueLines; //Nombre y linea de dialogo (de momento)
+    [Header("Dailogue")]
+    public DialogueNode[] dialogueTree;
 
     [SerializeField] private Dialogue dialogueManager;
 
+    [Header("Visual Cue")]
     [SerializeField] private Renderer prompt; // Renderer del objeto visual
     [SerializeField] private Material keyboardMaterial;
     [SerializeField] private Material gamepadMaterial;
+
+    [Header("Ink JSON")]
+    [SerializeField] private TextAsset jsonfile;
 
     private System.IDisposable listener;
     void Start()
@@ -29,7 +34,8 @@ public class NPCInteract : MonoBehaviour
         {
             if (dialogueManager != null)
             {
-                dialogueManager.StartDialogueFromNPC(dialogueLines);
+                dialogueManager.StartDialogueFromNPC(dialogueTree); //Sin el Ink
+                //dialogueManager.EnterDialoguemod(jsonfile); //Con el Ink
             }
         }
     }

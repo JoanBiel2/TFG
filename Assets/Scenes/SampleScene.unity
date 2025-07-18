@@ -2058,17 +2058,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05771a6fc4ce8af42903e4743a70b920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueLines:
-  - speakerName: ERRRE
-    text: AAAAAAAAAAAAA
-  - speakerName: ASDSADA
-    text: SSSS
-  - speakerName: QQQQQQW
-    text: DDDDDDD
+  dialogueTree: []
   dialogueManager: {fileID: 787746768}
   prompt: {fileID: 1661325538}
   keyboardMaterial: {fileID: 2100000, guid: 1f106de860a4df048a67e6e3aeeee89e, type: 2}
   gamepadMaterial: {fileID: 2100000, guid: 115b4d94e35768846ad24daa827dd5b5, type: 2}
+  jsonfile: {fileID: 0}
 --- !u!54 &929011619
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4069,17 +4064,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05771a6fc4ce8af42903e4743a70b920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueLines:
-  - speakerName: Deckard
-    text: Hola Buenas
-  - speakerName: Colms
-    text: Karballo
-  - speakerName: Adrian
-    text: Karballez
+  dialogueTree:
+  - index: 0
+    dialogueline:
+    - speakerName: Deckard
+      text: sadada
+    - speakerName: asdasdsa
+      text: asdasdsdsds
+    - speakerName: ssss
+      text: aaaaa
+    decision: 0
+    where: 1
+  - index: 1
+    dialogueline:
+    - speakerName: dasdsa
+      text: asaa
+    - speakerName: aaaaa
+      text: sssss
+    - speakerName: wwwwwwww
+      text: wdadadada
+    decision: 0
+    where: 2
   dialogueManager: {fileID: 787746768}
   prompt: {fileID: 1478622239}
   keyboardMaterial: {fileID: 2100000, guid: 1f106de860a4df048a67e6e3aeeee89e, type: 2}
   gamepadMaterial: {fileID: 2100000, guid: 115b4d94e35768846ad24daa827dd5b5, type: 2}
+  jsonfile: {fileID: 4900000, guid: 8738f5372cc9a2c44a2ed5d822402243, type: 3}
 --- !u!1001 &1848280074
 PrefabInstance:
   m_ObjectHideFlags: 0
