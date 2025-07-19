@@ -1,6 +1,7 @@
 using Ink.Runtime;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,15 +9,15 @@ using UnityEngine.InputSystem;
 
 public class Dialogue : MonoBehaviour, IPointerClickHandler
 {
-    public TextMeshProUGUI textcomponent;
-    public TextMeshProUGUI namecomponent;
-    private DialogueNode[] dialogueTree;
-    public float textSpeed;
+    private static Dialogue instance;
+
+    [Header("Dialogue UI")]
+    [SerializeField] private GameObject dialoguepanel;
+    [SerializeField] private TextMeshProUGUI textcomponent;
+    [SerializeField] private TextMeshProUGUI namecomponent;
+    [SerializeField] private float textSpeed;
 
     private PlayerInput pi;
-
-    private int mapindex; //Indice del mapa
-    private int index; //Subvectoe de dialogos
 
     private float lastAdvanceTime = 0f;
     private float advanceDelay = 0.2f;
@@ -24,12 +25,35 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private Story currentstory;
     private bool dialogueplaying;
 
+    [Header("Choices UI")]
+    [SerializeField] private GameObject[] choices;
+    private TextMeshProUGUI[] choicestext;
+
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Debug.LogWarning("Existe mas de un dialogue en la escena");
+        }
+        instance = this;
+    }
+    public static Dialogue GetInstance()
+    {
+        return instance;
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         TryGetPlayerInput();
-        mapindex = 0;
         dialogueplaying = false;
+
+        choicestext = new TextMeshProUGUI[choices.Length];
+        int index = 0;
+        foreach (GameObject choice in choices)
+        {
+            choicestext[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+            index++;
+        }
     }
     private void Update()
     {
@@ -39,7 +63,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            if (TryGetPlayerInput() && pi.actions["Interact"].IsPressed())
+            if (pi.actions["Next"].WasPressedThisFrame()) //TryGetPlayerInput() && 
             {
               ContinueStory();
             }
@@ -51,6 +75,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         if (currentstory.canContinue)
         {
             textcomponent.text = currentstory.Continue(); //Muestra la linea actual, y hace un indice++
+            DisplayChoices();
         }
         else
         {
@@ -75,10 +100,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     {
         currentstory = new Story(InkJSON.text);
         dialogueplaying = true;
-        gameObject.SetActive(true);
+        dialoguepanel.SetActive(true);
 
         ContinueStory();
-        StartCoroutine(TypeLine());
+        //StartCoroutine(TypeLine());
 
         if (TryGetPlayerInput())
         {
@@ -88,19 +113,54 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private void ExitDialogueMod()
     {
         dialogueplaying = false;
-        gameObject.SetActive(false);
+        dialoguepanel.SetActive(false);
         textcomponent.text = "";
+        pi.SwitchCurrentActionMap("Player");
     }
     //Avanzar el dialogo con el click izquierdo (El botón de Next se hace desde los eventos en el inspector)
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            HandleAdvance();
+            Debug.Log("AAAAAAA");
+            ContinueStory();
         }
     }
+    private void DisplayChoices()
+    {
+        List<Choice> currentChoices = currentstory.currentChoices;
+        if(currentChoices.Count > choices.Length)
+        {
+            Debug.LogError("Demasiadas opciones");
+        }
 
-    public void StartDialogueFromNPC(DialogueNode[] newlines)
+        int index = 0;
+        foreach (Choice choice in currentChoices)
+        {
+            choices[index].gameObject.SetActive(true);
+            choicestext[index].text = choice.text;
+            index++;
+        }
+        for(int i = index; i < choices.Length; i++)
+        {
+            choices[i].gameObject.SetActive(false);
+        }
+        StartCoroutine(SelectedFirstChoice());
+    }
+    private IEnumerator SelectedFirstChoice()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        yield return new WaitForEndOfFrame();
+        EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
+    }
+
+    public void MakeChoice(int choiceindex)
+    {
+        currentstory.ChooseChoiceIndex(choiceindex);
+        ContinueStory();
+    }
+
+    /*public void StartDialogueFromNPC(DialogueNode[] newlines)
     {
         textcomponent.text = string.Empty;
         namecomponent.text = string.Empty;
@@ -114,9 +174,9 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             pi.SwitchCurrentActionMap("DialogueControl");
         }
-    }
+    }*/
 
-    IEnumerator TypeLine()
+    /*IEnumerator TypeLine()
     {
         namecomponent.text = dialogueTree[mapindex].dialogueline[index].speakerName;
         foreach (char c in dialogueTree[mapindex].dialogueline[index].text.ToCharArray())
@@ -124,8 +184,8 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             textcomponent.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
-    }
-    void NextLine()
+    }*/
+    /*void NextLine()
     {
         if (index < dialogueTree[mapindex].dialogueline.Length - 1)
         {
@@ -150,8 +210,8 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
                 pi.SwitchCurrentActionMap("Player");
             }
         }
-    }
-    public void HandleAdvance()
+    }*/
+    /*public void HandleAdvance()
     {
         if (Time.time - lastAdvanceTime < advanceDelay)
             return;
@@ -168,5 +228,5 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             textcomponent.text = dialogueTree[mapindex].dialogueline[index].text;
             namecomponent.text = dialogueTree[mapindex].dialogueline[index].speakerName;
         }
-    }
+    }*/
 }

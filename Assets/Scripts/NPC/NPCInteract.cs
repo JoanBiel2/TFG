@@ -10,7 +10,7 @@ public class NPCInteract : MonoBehaviour
     [Header("Dailogue")]
     public DialogueNode[] dialogueTree;
 
-    [SerializeField] private Dialogue dialogueManager;
+    //[SerializeField] private Dialogue dialogueManager;
 
     [Header("Visual Cue")]
     [SerializeField] private Renderer prompt; // Renderer del objeto visual
@@ -28,15 +28,12 @@ public class NPCInteract : MonoBehaviour
         prompt.transform.localPosition = new Vector3(0, 2.5f, 0);
     }
 
-    void Update()
+    private void Update()
     {
         if (playernear && pi.actions["Interact"].IsPressed())
         {
-            if (dialogueManager != null)
-            {
-                dialogueManager.StartDialogueFromNPC(dialogueTree); //Sin el Ink
-                //dialogueManager.EnterDialoguemod(jsonfile); //Con el Ink
-            }
+            Dialogue.GetInstance().EnterDialoguemod(jsonfile);
+
         }
     }
 
