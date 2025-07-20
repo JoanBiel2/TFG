@@ -8,7 +8,6 @@ public class NPCInteract : MonoBehaviour
     private bool playernear = false;
 
     [Header("Dailogue")]
-    public DialogueNode[] dialogueTree;
 
     //[SerializeField] private Dialogue dialogueManager;
 

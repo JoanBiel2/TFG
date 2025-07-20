@@ -21,6 +21,8 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float textSpeed;
     private Coroutine showlinecor;
     private bool cancontinue = false;
+    private bool inputBlocked = false;
+
 
     private PlayerInput pi;
     private Story currentstory;
@@ -61,7 +63,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     }
     private void Update()
     {
-        if (!dialogueplaying)
+        if (!dialogueplaying || inputBlocked)
             return;
 
         if (!TryGetPlayerInput())
@@ -88,6 +90,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             ContinueStory();
         }
     }
+
     private void ContinueStory()
     {
         if (currentstory.canContinue)
@@ -234,9 +237,17 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     private IEnumerator DelayText(int choiceindex)
     {
+        inputBlocked = true;
+
         currentstory.ChooseChoiceIndex(choiceindex);
-        yield return new WaitForSeconds(0.15f);
+
+        // Espera hasta que el jugador suelte el botón "Next"
+        yield return new WaitUntil(() => !pi.actions["Next"].IsPressed());
+
         ContinueStory();
+
+        inputBlocked = false;
     }
+
 
 }
