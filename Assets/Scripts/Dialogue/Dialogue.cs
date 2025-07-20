@@ -2,10 +2,12 @@ using Ink.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour, IPointerClickHandler
 {
@@ -15,19 +17,21 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     [SerializeField] private GameObject dialoguepanel;
     [SerializeField] private TextMeshProUGUI textcomponent;
     [SerializeField] private TextMeshProUGUI namecomponent;
+    [SerializeField] private Animator potraitanim;
     [SerializeField] private float textSpeed;
+    private Coroutine showlinecor;
+    private bool cancontinue = false;
 
     private PlayerInput pi;
-
-    private float lastAdvanceTime = 0f;
-    private float advanceDelay = 0.2f;
-
     private Story currentstory;
     private bool dialogueplaying;
 
     [Header("Choices UI")]
     [SerializeField] private GameObject[] choices;
     private TextMeshProUGUI[] choicestext;
+
+    private const string SPEAKER_TAG = "Speaker";
+    private const string PORTRAIT_TAG = "Portrait";
 
     private void Awake()
     {
@@ -58,28 +62,89 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private void Update()
     {
         if (!dialogueplaying)
-        {
             return;
-        }
-        else
+
+        if (!TryGetPlayerInput())
+            return;
+
+        if (cancontinue && currentstory.currentChoices.Count > 0)
         {
-            if (pi.actions["Next"].WasPressedThisFrame()) //TryGetPlayerInput() && 
+            if (pi.actions["Next"].WasPressedThisFrame())
             {
-              ContinueStory();
+                GameObject selected = EventSystem.current.currentSelectedGameObject;
+                for (int i = 0; i < choices.Length; i++)
+                {
+                    if (choices[i].gameObject == selected)
+                    {
+                        MakeChoice(i);
+                        return;
+                    }
+                }
+                MakeChoice(0);
             }
         }
+        else if (cancontinue && pi.actions["Next"].WasPressedThisFrame())
+        {
+            ContinueStory();
+        }
     }
-
     private void ContinueStory()
     {
         if (currentstory.canContinue)
         {
-            textcomponent.text = currentstory.Continue(); //Muestra la linea actual, y hace un indice++
-            DisplayChoices();
+            if (showlinecor != null)
+            {
+                StopCoroutine(showlinecor);
+            }
+            showlinecor = StartCoroutine(ShowLine(currentstory.Continue())); //Muestra la linea actual, y hace un indice++
+            HandleTags(currentstory.currentTags);
         }
         else
         {
             ExitDialogueMod();
+        }
+    }
+    private IEnumerator ShowLine(string line)
+    {
+        textcomponent.text = "";
+        yield return new WaitForSeconds(0.15f); //Para que no salte directamente a la siguiente linea de dialogo
+        cancontinue = false;
+        Hidechoices();
+        foreach (var letter in line.ToCharArray())
+        {
+            if (pi.actions["Next"].IsPressed())
+            {
+                textcomponent.text = line;
+                break;
+            }
+            textcomponent.text += letter;
+            yield return new WaitForSeconds(textSpeed);
+        }
+        DisplayChoices();
+        cancontinue = true;
+    }
+    private void HandleTags(List<string> tags)
+    {
+        foreach (var tag in tags)
+        {
+            string[] splitTag = tag.Split(':');
+            if (splitTag.Length != 2)
+            {
+                Debug.LogError("La has cagado en alguna tag");
+            }
+            string tagKey = splitTag[0].Trim(); //Quita los possibles espacios en blanco
+            string tagValue = splitTag[1].Trim();
+
+            switch (tagKey)
+            {
+                case SPEAKER_TAG:
+                    namecomponent.text = tagValue;
+                    break;
+
+                case PORTRAIT_TAG:
+                    potraitanim.Play(tagValue);
+                    break;
+            }
         }
     }
 
@@ -103,7 +168,6 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         dialoguepanel.SetActive(true);
 
         ContinueStory();
-        //StartCoroutine(TypeLine());
 
         if (TryGetPlayerInput())
         {
@@ -118,11 +182,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         pi.SwitchCurrentActionMap("Player");
     }
     //Avanzar el dialogo con el click izquierdo (El botón de Next se hace desde los eventos en el inspector)
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData) //Ha dejado de funcionar por el Ink, hay que arreglarlo
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            Debug.Log("AAAAAAA");
             ContinueStory();
         }
     }
@@ -147,6 +210,13 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         }
         StartCoroutine(SelectedFirstChoice());
     }
+    private void Hidechoices()
+    {
+        foreach (GameObject choicebutton in choices)
+        {
+            choicebutton.SetActive(false);
+        }
+    }
     private IEnumerator SelectedFirstChoice()
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -156,77 +226,17 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     public void MakeChoice(int choiceindex)
     {
+        if (cancontinue)
+        {
+            StartCoroutine(DelayText(choiceindex));
+        }
+    }
+
+    private IEnumerator DelayText(int choiceindex)
+    {
         currentstory.ChooseChoiceIndex(choiceindex);
+        yield return new WaitForSeconds(0.15f);
         ContinueStory();
     }
 
-    /*public void StartDialogueFromNPC(DialogueNode[] newlines)
-    {
-        textcomponent.text = string.Empty;
-        namecomponent.text = string.Empty;
-        dialogueTree = newlines;
-        index = 0;
-        gameObject.SetActive(true);
-        StartCoroutine(TypeLine());
-
-        // Verificar PlayerInput abans de cambiar el ActionMap
-        if (TryGetPlayerInput())
-        {
-            pi.SwitchCurrentActionMap("DialogueControl");
-        }
-    }*/
-
-    /*IEnumerator TypeLine()
-    {
-        namecomponent.text = dialogueTree[mapindex].dialogueline[index].speakerName;
-        foreach (char c in dialogueTree[mapindex].dialogueline[index].text.ToCharArray())
-        {
-            textcomponent.text += c;
-            yield return new WaitForSeconds(textSpeed);
-        }
-    }*/
-    /*void NextLine()
-    {
-        if (index < dialogueTree[mapindex].dialogueline.Length - 1)
-        {
-            index++;
-            textcomponent.text = string.Empty;
-            namecomponent.text = string.Empty;
-            StartCoroutine(TypeLine());
-        }
-        else
-        {
-            if (mapindex < dialogueTree.Length - 1)
-            {
-                mapindex++;
-                index = 0;
-                textcomponent.text = string.Empty;
-                namecomponent.text = string.Empty;
-                StartCoroutine(TypeLine());
-            }
-            else
-            {
-                gameObject.SetActive(false);
-                pi.SwitchCurrentActionMap("Player");
-            }
-        }
-    }*/
-    /*public void HandleAdvance()
-    {
-        if (Time.time - lastAdvanceTime < advanceDelay)
-            return;
-
-        lastAdvanceTime = Time.time;
-
-        if (textcomponent.text == dialogueTree[mapindex].dialogueline[index].text) //Cuando el texto se completa, ya sea porque el jugador le ha dado al botón o por que ha pasado el tiempo
-        {
-            NextLine();
-        }
-        else
-        {
-            StopAllCoroutines();
-            textcomponent.text = dialogueTree[mapindex].dialogueline[index].text;
-            namecomponent.text = dialogueTree[mapindex].dialogueline[index].speakerName;
-        }
-    }*/
 }
