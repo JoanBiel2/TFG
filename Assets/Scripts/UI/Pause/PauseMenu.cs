@@ -1,6 +1,7 @@
 using NUnit.Framework.Constraints;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
@@ -9,7 +10,10 @@ public class PauseMenu : MonoBehaviour
     private InputAction menu;
 
     [SerializeField] private GameObject PauseUI;
-    [SerializeField] private bool IsPaused;
+    private bool IsPaused;
+
+    [SerializeField] private GameObject mainmenufirst; //Para el menu principal
+    [SerializeField] private GameObject settingsmenufirst; //Para el menu de opciones
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -17,11 +21,6 @@ public class PauseMenu : MonoBehaviour
         playercon = new PlayerControls();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnEnable()
     {
         menu = playercon.UI.Pause;
@@ -53,6 +52,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0;
         AudioListener.pause = true; //Quizas lo mantengo, o puedo bajar el volumen
         PauseUI.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(mainmenufirst);
     }
 
     public void DeactivateMenu()
@@ -61,5 +62,7 @@ public class PauseMenu : MonoBehaviour
         AudioListener.pause = false; //Quizas lo mantengo, o puedo bajar el volumen
         PauseUI.SetActive(false);
         IsPaused = false;
+
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

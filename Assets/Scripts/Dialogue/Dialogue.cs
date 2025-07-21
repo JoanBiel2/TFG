@@ -109,10 +109,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     }
     private IEnumerator ShowLine(string line)
     {
+        Hidechoices();
         textcomponent.text = "";
         yield return new WaitForSeconds(0.15f); //Para que no salte directamente a la siguiente linea de dialogo
         cancontinue = false;
-        Hidechoices();
         foreach (var letter in line.ToCharArray())
         {
             if (pi.actions["Next"].IsPressed())

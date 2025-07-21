@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 260514287}
   - component: {fileID: 260514286}
   m_Layer: 0
-  m_Name: UIController
+  m_Name: PauseManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -656,7 +656,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PauseUI: {fileID: 749269472}
-  IsPaused: 0
+  mainmenufirst: {fileID: 1744705741}
+  settingsmenufirst: {fileID: 0}
 --- !u!4 &260514287
 Transform:
   m_ObjectHideFlags: 0
@@ -666,11 +667,11 @@ Transform:
   m_GameObject: {fileID: 260514285}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -190.11969, y: -91.46811, z: 63.58683}
+  m_LocalPosition: {x: -190.11969, y: -90.42811, z: 63.58683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 680471604}
+  m_Father: {fileID: 1519801384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &276115802
 GameObject:
@@ -878,6 +879,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d36a59a4-5dfb-40e3-9797-07e98c1ee25f
     m_ActionName: 'DialogueControl/Pass[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 07fce096-ee71-4113-a806-f6ce619beb5c
+    m_ActionName: 'Player/LookGamepad[/XInputControllerWindows/rightStick]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -1271,6 +1276,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 276115807}
+  cameraMoveInput: {fileID: 4031010850983754967, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  controllerDragSpeed: 30
 --- !u!1 &380672181
 GameObject:
   m_ObjectHideFlags: 0
@@ -1818,7 +1825,6 @@ Transform:
   - {fileID: 276115807}
   - {fileID: 2071196156}
   - {fileID: 1254675879}
-  - {fileID: 260514287}
   - {fileID: 815554327}
   - {fileID: 1174837808}
   m_Father: {fileID: 0}
@@ -2623,7 +2629,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05771a6fc4ce8af42903e4743a70b920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueTree: []
   prompt: {fileID: 1661325538}
   keyboardMaterial: {fileID: 2100000, guid: 1f106de860a4df048a67e6e3aeeee89e, type: 2}
   gamepadMaterial: {fileID: 2100000, guid: 115b4d94e35768846ad24daa827dd5b5, type: 2}
@@ -4716,6 +4721,7 @@ Transform:
   m_Children:
   - {fileID: 734655224}
   - {fileID: 196563803}
+  - {fileID: 260514287}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1595211245
@@ -5586,27 +5592,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05771a6fc4ce8af42903e4743a70b920, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueTree:
-  - index: 0
-    dialogueline:
-    - speakerName: Deckard
-      text: sadada
-    - speakerName: asdasdsa
-      text: asdasdsdsds
-    - speakerName: ssss
-      text: aaaaa
-    decision: 0
-    where: 1
-  - index: 1
-    dialogueline:
-    - speakerName: dasdsa
-      text: asaa
-    - speakerName: aaaaa
-      text: sssss
-    - speakerName: wwwwwwww
-      text: wdadadada
-    decision: 0
-    where: 2
   prompt: {fileID: 1478622239}
   keyboardMaterial: {fileID: 2100000, guid: 1f106de860a4df048a67e6e3aeeee89e, type: 2}
   gamepadMaterial: {fileID: 2100000, guid: 115b4d94e35768846ad24daa827dd5b5, type: 2}

@@ -17,6 +17,10 @@ public class CameraFollow : MonoBehaviour
     private float maxdist = 30f;
 
     [SerializeField] private Transform player;
+    [SerializeField] private InputActionReference cameraMoveInput; // Referencia al InputAction de movimiento de cámara con stick
+    [SerializeField] private float controllerDragSpeed;
+
+
 
     private void Awake()
     {
@@ -40,9 +44,33 @@ public class CameraFollow : MonoBehaviour
             targetPos.y = transform.position.y;
             transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * dragSpeed);
         }
+        else
+        {
+            HandleControlDrag();
+        }
 
-        ClampDistanceToPlayer();
+            ClampDistanceToPlayer();
     }
+    private void HandleControlDrag() //Se encarga del movimiento de la camara del mando
+    {
+        Vector2 input = cameraMoveInput.action.ReadValue<Vector2>();
+
+        if (input.sqrMagnitude > 0.01f)
+        {
+            Vector3 move = new Vector3(input.x, 0, input.y);
+            transform.position += move * controllerDragSpeed * Time.deltaTime;
+        }
+    }
+    private void OnEnable()
+    {
+        cameraMoveInput?.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        cameraMoveInput?.action.Disable();
+    }
+
 
     private void HandleZoom()
     {

@@ -38,7 +38,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         this.itemsprite = sprite;
         this.itemdesc = desc;
         isFull = true;
-        //this.Itemsprite = mesh //El mesh tiene que saber que sprite usar.
 
         ItemImage.sprite = sprite;
     }
@@ -48,10 +47,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             OnLeftClick();
-        }
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            OnRightClick();
         }
     }
 
@@ -63,10 +58,5 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         ItemDesciptionNameText.text = itemname;
         ItemDesciptionText.text = itemdesc;
         itemDescriptionimage.sprite = itemsprite;
-    }
-
-    public void OnRightClick()
-    {
-
     }
 }
