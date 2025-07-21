@@ -1,5 +1,8 @@
+using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class InventoryManager : MonoBehaviour
@@ -11,6 +14,7 @@ public class InventoryManager : MonoBehaviour
 
     [SerializeField] private GameObject InvUI;
     [SerializeField] private bool IsActive;
+
 
     void Awake()
     {
@@ -44,7 +48,11 @@ public class InventoryManager : MonoBehaviour
     }
     void ActivateMenu()
     {
+        Button button = itemslot[0].GetComponentInChildren<Button>();
         InvUI.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(button.gameObject);
+        
     }
 
     public void DeactivateMenu()

@@ -53,7 +53,7 @@ public class PauseMenu : MonoBehaviour
         AudioListener.pause = true; //Quizas lo mantengo, o puedo bajar el volumen
         PauseUI.SetActive(true);
 
-        EventSystem.current.SetSelectedGameObject(mainmenufirst);
+        EventSystem.current.SetSelectedGameObject(mainmenufirst); //El propio eventsystem se ocupa del movimiento por el menu.
     }
 
     public void DeactivateMenu()

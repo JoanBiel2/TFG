@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour, IPointerClickHandler
+public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
 {
     //=========ITEM DATA=========//
     public string itemname;
@@ -50,6 +50,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void OnSelect(BaseEventData eventData)
+    {
+        OnLeftClick();
+    }
+
+
     public void OnLeftClick()
     {
         inventorymanager.DeselectAllSlots();
@@ -58,5 +64,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         ItemDesciptionNameText.text = itemname;
         ItemDesciptionText.text = itemdesc;
         itemDescriptionimage.sprite = itemsprite;
+
     }
 }
