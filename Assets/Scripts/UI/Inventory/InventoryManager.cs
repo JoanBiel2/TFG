@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     private InputAction menu;
     public ItemSlot[] itemslot;
 
+    [SerializeField] private PlayerInput pi;
     [SerializeField] private GameObject InvUI;
     [SerializeField] private bool IsActive;
 
@@ -20,8 +21,6 @@ public class InventoryManager : MonoBehaviour
     {
         playercon = new PlayerControls();
     }
-
-    // Update is called once per frame
     private void OnEnable()
     {
         menu = playercon.UI.Inventory;
@@ -40,19 +39,21 @@ public class InventoryManager : MonoBehaviour
         if (IsActive)
         {
             ActivateMenu();
+            pi.SwitchCurrentActionMap("UI");
         }
         else
         {
             DeactivateMenu();
+            pi.SwitchCurrentActionMap("Player");
         }
     }
+
     void ActivateMenu()
     {
-        Button button = itemslot[0].GetComponentInChildren<Button>();
+        Button button = itemslot[1].GetComponentInChildren<Button>(); //El 1 y el 0 estan visualmente cambiados. Si no se hace asi, hay un fallo que hace que no deje acceder
+                                                                      //al primer item slot con el mando o el teclado
         InvUI.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(button.gameObject);
-        
     }
 
     public void DeactivateMenu()
@@ -60,6 +61,7 @@ public class InventoryManager : MonoBehaviour
         InvUI.SetActive(false);
         IsActive = false;
     }
+
     public void AddItem(string name, int quant, Sprite sprite, string desc)
     {
         for (int i = 0; i < itemslot.Length; i++)

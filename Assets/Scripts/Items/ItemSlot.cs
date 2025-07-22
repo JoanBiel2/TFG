@@ -49,13 +49,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
             OnLeftClick();
         }
     }
-
     public void OnSelect(BaseEventData eventData)
     {
         OnLeftClick();
     }
-
-
     public void OnLeftClick()
     {
         inventorymanager.DeselectAllSlots();

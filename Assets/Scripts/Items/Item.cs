@@ -24,7 +24,6 @@ public class Item : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         inventorymanager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>(); //Recupera el script de InventoryManager
         pi = GameObject.Find("Player").GetComponentInChildren<PlayerInput>();
         playernear = false;
@@ -66,7 +65,7 @@ public class Item : MonoBehaviour
 
     private void OnDisable()
     {
-        listener?.Dispose();
+        listener.Dispose();
     }
     void OnAnyInput(InputControl control)
     {
