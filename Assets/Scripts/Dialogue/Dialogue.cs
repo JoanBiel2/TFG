@@ -150,7 +150,6 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             }
         }
     }
-
     // Método para obtener PlayerInput. Necesario para que no de error al cambiar de Action Map
     private bool TryGetPlayerInput()
     {
@@ -164,6 +163,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         }
         return pi != null;
     }
+
     public void EnterDialoguemod(TextAsset InkJSON)
     {
         currentstory = new Story(InkJSON.text);
@@ -177,6 +177,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             pi.SwitchCurrentActionMap("DialogueControl");
         }
     }
+
     private void ExitDialogueMod()
     {
         dialogueplaying = false;
@@ -192,6 +193,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             ContinueStory();
         }
     }
+
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentstory.currentChoices;
@@ -213,6 +215,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         }
         StartCoroutine(SelectedFirstChoice());
     }
+
     private void Hidechoices()
     {
         foreach (GameObject choicebutton in choices)
@@ -220,6 +223,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             choicebutton.SetActive(false);
         }
     }
+
     private IEnumerator SelectedFirstChoice()
     {
         EventSystem.current.SetSelectedGameObject(null);
@@ -248,6 +252,4 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
         inputBlocked = false;
     }
-
-
 }

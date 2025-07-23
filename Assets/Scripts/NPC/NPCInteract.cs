@@ -53,6 +53,7 @@ public class NPCInteract : MonoBehaviour
             prompt.gameObject.SetActive(false);
         }
     }
+
     private void OnEnable()
     {
         listener = InputSystem.onAnyButtonPress.Call(OnAnyInput);
@@ -62,6 +63,7 @@ public class NPCInteract : MonoBehaviour
     {
         listener?.Dispose();
     }
+
     void OnAnyInput(InputControl control)
     {
         var device = control.device;

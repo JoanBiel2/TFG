@@ -9,8 +9,9 @@ public class PauseMenu : MonoBehaviour
     private PlayerControls playercon;
     private InputAction menu;
 
-    [SerializeField] private GameObject PauseUI;
-    private bool IsPaused;
+    [SerializeField] private GameObject pauseui;
+    [SerializeField] private GameObject optionsui;
+    private bool ispaused;
 
     [SerializeField] private GameObject mainmenufirst; //Para el menu principal
     [SerializeField] private GameObject settingsmenufirst; //Para el menu de opciones
@@ -29,6 +30,7 @@ public class PauseMenu : MonoBehaviour
         menu.performed += Pause; //No se porque el +=, pero hace que se dispare el evento
 
     }
+
     private void OnDisable()
     {
         menu.Disable();
@@ -36,9 +38,9 @@ public class PauseMenu : MonoBehaviour
 
     void Pause(InputAction.CallbackContext ctx)
     {
-        IsPaused = !IsPaused;
+        ispaused = !ispaused;
 
-        if (IsPaused)
+        if (ispaused)
         {
             ActivateMenu();
         }
@@ -47,11 +49,12 @@ public class PauseMenu : MonoBehaviour
             DeactivateMenu();
         }
     }
+
     void ActivateMenu()
     {
         Time.timeScale = 0;
         AudioListener.pause = true; //Quizas lo mantengo, o puedo bajar el volumen
-        PauseUI.SetActive(true);
+        pauseui.SetActive(true);
 
         EventSystem.current.SetSelectedGameObject(mainmenufirst); //El propio eventsystem se ocupa del movimiento por el menu.
     }
@@ -60,9 +63,27 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         AudioListener.pause = false; //Quizas lo mantengo, o puedo bajar el volumen
-        PauseUI.SetActive(false);
-        IsPaused = false;
+        pauseui.SetActive(false);
+        optionsui.SetActive(false);
+        ispaused = false;
 
         EventSystem.current.SetSelectedGameObject(null);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
+    public void OpenOptions()
+    {
+        pauseui.SetActive(false);
+        optionsui.SetActive(true);
+    }
+
+    public void ReturnMenu()
+    {
+        pauseui.SetActive(true);
+        optionsui.SetActive(false);
     }
 }
