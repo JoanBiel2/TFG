@@ -3,6 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -53,7 +54,7 @@ public class PauseMenu : MonoBehaviour
     void ActivateMenu()
     {
         Time.timeScale = 0;
-        AudioListener.pause = true; //Quizas lo mantengo, o puedo bajar el volumen
+        AudioListener.pause = true;
         pauseui.SetActive(true);
 
         EventSystem.current.SetSelectedGameObject(mainmenufirst); //El propio eventsystem se ocupa del movimiento por el menu.
@@ -62,7 +63,7 @@ public class PauseMenu : MonoBehaviour
     public void DeactivateMenu()
     {
         Time.timeScale = 1;
-        AudioListener.pause = false; //Quizas lo mantengo, o puedo bajar el volumen
+        AudioListener.pause = false;
         pauseui.SetActive(false);
         optionsui.SetActive(false);
         ispaused = false;
@@ -72,7 +73,9 @@ public class PauseMenu : MonoBehaviour
 
     public void Exit()
     {
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
+        AudioListener.pause = false;
+        Time.timeScale = 1;
     }
 
     public void OpenOptions()
