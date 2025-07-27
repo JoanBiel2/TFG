@@ -6,15 +6,16 @@ using UnityEngine.InputSystem.Utilities;
 public class Item : MonoBehaviour
 {
     [SerializeField] private string evidencename; //Nombre del objeto
-    [SerializeField] private int quantity; //No se usa
     [SerializeField] private Sprite sprite; //Como se ve en el inventario
     [TextArea][SerializeField] private string desc; //Descripción del objeto
 
     [SerializeField] private Renderer prompt; // Renderer del objeto visual
     [SerializeField] private Material keyboardMaterial;
     [SerializeField] private Material gamepadMaterial;
-
+    [SerializeField] public int xpgiven; //Cada prueba da una cantidad de experiencia, la cantidad depende de la inportacia que tenga
+    
     private InventoryManager inventorymanager;
+    private CharacterInformation charinfo;
     private PlayerInput pi; //Para recoger pruebas con un botón
 
     private bool playernear;
@@ -24,8 +25,9 @@ public class Item : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        inventorymanager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>(); //Recupera el script de InventoryManager
+        inventorymanager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>(); //Recupera el script de InventoryManager
         pi = GameObject.Find("Player").GetComponentInChildren<PlayerInput>();
+        charinfo = GameObject.Find("InventoryManager").GetComponent<CharacterInformation>();
         playernear = false;
         prompt.gameObject.SetActive(false);
         prompt.transform.localPosition = new Vector3(0, 2f, 0);
@@ -35,7 +37,8 @@ public class Item : MonoBehaviour
     {
         if (playernear && pi.actions["Interact"].IsPressed()) //Cuando el personaje este en el area de colision, deberia de recoger el objeto pulsando la E.
             {
-                inventorymanager.AddItem(evidencename, quantity, sprite, desc);
+                inventorymanager.AddItem(evidencename, sprite, desc);
+                charinfo.AddExpItem(xpgiven);
                 Destroy(gameObject);     
             }
     }

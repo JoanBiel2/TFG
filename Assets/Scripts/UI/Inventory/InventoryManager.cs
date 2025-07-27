@@ -13,8 +13,12 @@ public class InventoryManager : MonoBehaviour
     public ItemSlot[] itemslot;
 
     [SerializeField] private PlayerInput pi;
-    [SerializeField] private GameObject InvUI;
-    [SerializeField] private bool IsActive;
+
+    [SerializeField] private GameObject menuUI; //Tiene de hijos a inv y state
+    [SerializeField] private GameObject invUI;
+    [SerializeField] private GameObject stateUI;
+
+    private bool isactive;
 
 
     void Awake()
@@ -32,11 +36,11 @@ public class InventoryManager : MonoBehaviour
     {
         menu.Disable();
     }
-    void Inventory(InputAction.CallbackContext ctx)
+    private void Inventory(InputAction.CallbackContext ctx)
     {
-        IsActive = !IsActive;
+        isactive = !isactive;
 
-        if (IsActive)
+        if (isactive)
         {
             ActivateMenu();
             pi.SwitchCurrentActionMap("UI");
@@ -48,21 +52,30 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void ActivateMenu()
+    public void ActivateMenu() //Tambien sirve como metodo para el botón de Inventory
     {
         Button button = itemslot[1].GetComponentInChildren<Button>(); //El 1 y el 0 estan visualmente cambiados. Si no se hace asi, hay un fallo que hace que no deje acceder
                                                                       //al primer item slot con el mando o el teclado
-        InvUI.SetActive(true);
+        menuUI.SetActive(true); //Aqui estan los botones para moverse por el UI
+        stateUI.SetActive(false);
+        invUI.SetActive(true);
+
         EventSystem.current.SetSelectedGameObject(button.gameObject);
     }
 
     public void DeactivateMenu()
     {
-        InvUI.SetActive(false);
-        IsActive = false;
+        menuUI.SetActive(false);
+        isactive = false;
+    }
+    
+    public void ButtonState()
+    {
+        stateUI.SetActive(true);
+        invUI.SetActive(false);
     }
 
-    public void AddItem(string name, int quant, Sprite sprite, string desc)
+    public void AddItem(string name, Sprite sprite, string desc)
     {
         for (int i = 0; i < itemslot.Length; i++)
         {

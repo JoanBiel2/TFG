@@ -23,7 +23,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
 
     private void Start()
     {
-        inventorymanager = GameObject.Find("InventoryCanvas").GetComponent<InventoryManager>();
+        inventorymanager = GameObject.Find("MenuCanvas").GetComponent<InventoryManager>();
     }
 
     //=========ITEM DESCRIPTION SLOT=========//
