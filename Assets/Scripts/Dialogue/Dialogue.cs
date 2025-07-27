@@ -35,8 +35,11 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private const string SPEAKER_TAG = "Speaker";
     private const string PORTRAIT_TAG = "Portrait";
 
+    private CharacterInformation charinfo;
+
     private void Awake()
     {
+        charinfo = GameObject.Find("InventoryManager").GetComponent<CharacterInformation>();
         if (instance != null)
         {
             Debug.LogWarning("Existe mas de un dialogue en la escena");
@@ -170,6 +173,11 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         dialogueplaying = true;
         dialoguepanel.SetActive(true);
 
+        currentstory.BindExternalFunction("GiveExp", (int exp) =>
+        {
+            charinfo.AddExpItem(exp);
+        });
+
         ContinueStory();
 
         if (TryGetPlayerInput())
@@ -180,6 +188,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     private void ExitDialogueMod()
     {
+        currentstory.UnbindExternalFunction("GiveExp");
         dialogueplaying = false;
         dialoguepanel.SetActive(false);
         textcomponent.text = "";

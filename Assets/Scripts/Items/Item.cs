@@ -12,7 +12,7 @@ public class Item : MonoBehaviour
     [SerializeField] private Renderer prompt; // Renderer del objeto visual
     [SerializeField] private Material keyboardMaterial;
     [SerializeField] private Material gamepadMaterial;
-    [SerializeField] public int xpgiven; //Cada prueba da una cantidad de experiencia, la cantidad depende de la inportacia que tenga
+    [SerializeField] private int xpgiven; //Cada prueba da una cantidad de experiencia, la cantidad depende de la inportacia que tenga
     
     private InventoryManager inventorymanager;
     private CharacterInformation charinfo;
