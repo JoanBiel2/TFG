@@ -5,6 +5,10 @@ using UnityEngine.InputSystem.Utilities;
 
 public class Item : MonoBehaviour
 {
+    /// <summary>
+    /// Cada prueba es unica y no debería repetirse ninguno de sus atributos
+    /// </summary>
+
     [SerializeField] private string evidencename; //Nombre del objeto
     [SerializeField] private Sprite sprite; //Como se ve en el inventario
     [TextArea][SerializeField] private string desc; //Descripción del objeto

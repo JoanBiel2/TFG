@@ -1,11 +1,14 @@
 EXTERNAL GiveExp (exp)
-
-~GiveExp(25)
+EXTERNAL SearchEvidence (name)
 
 ->Delgado_Body
 
+
 VAR strg = 2
+
 === Delgado_Body ===
+~temp foundbola = SearchEvidence("Bola")
+
 Gabriel Delgado, 57 años, más de 30 años de experiencia en el cuerpo. Todos los policías desean poder jubilarse y morir en una cama, rodeados de su familia, pero los mejores policías son los que mueren en las calles, protegiendo a su ciudad y a sus habitantes. Hizo unos juramentos, y los cumplió hasta el amargo final. No dejes que eso te afecte. Encuentra al culpable. #Speaker: Narrador #Portrait: narrador_anim
 *[Examinar cabeza]
     ~GiveExp(25)
@@ -26,6 +29,12 @@ Gabriel Delgado, 57 años, más de 30 años de experiencia en el cuerpo. Todos l
     ~GiveExp(25)
     Apenas puedes ver nada. Están completamente ensangrentadas, y bastante rígidas también. #Speaker: Voz Interna #Portrait: voz_anim
         ->Delgado_Body
+        
+*{foundbola}[Examinar el suelo]
+    Karballo
+    ->Delgado_Body
+
+
 
 *[Levantar el cuerpo]
     Podría haber algo debajo de Gabriel, pero ten cuidado, un cuerpo pesa mucho más de lo que parece. #Speaker: Voz Interna #Portrait: voz_anim

@@ -36,10 +36,13 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private const string PORTRAIT_TAG = "Portrait";
 
     private CharacterInformation charinfo;
+    private InventoryManager invman;
 
     private void Awake()
     {
         charinfo = GameObject.Find("InventoryManager").GetComponent<CharacterInformation>();
+        invman = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+
         if (instance != null)
         {
             Debug.LogWarning("Existe mas de un dialogue en la escena");
@@ -177,6 +180,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             charinfo.AddExpItem(exp);
         });
+        currentstory.BindExternalFunction("SearchEvidence", (string name) =>
+        {
+            return invman.SearchEvidence(name);
+        });
 
         ContinueStory();
 
@@ -189,6 +196,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private void ExitDialogueMod()
     {
         currentstory.UnbindExternalFunction("GiveExp");
+        currentstory.UnbindExternalFunction("SearchEvidence");
         dialogueplaying = false;
         dialoguepanel.SetActive(false);
         textcomponent.text = "";

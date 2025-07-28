@@ -95,4 +95,21 @@ public class InventoryManager : MonoBehaviour
             itemslot[i].itemSelected = false;
         }
     }
+    public bool SearchEvidence(string name)
+    {
+        bool found;
+        Debug.Log(name);
+        ItemSlot result = Array.Find(itemslot, slot => slot.itemname == name);
+        if (result == null)
+        {
+            Debug.Log("No tienes esa prueba en el inventario");
+            found = false;
+        }
+        else
+        {
+            Debug.Log("Tienes la prueba");
+            found = true;
+        }
+        return found;
+    }
 }

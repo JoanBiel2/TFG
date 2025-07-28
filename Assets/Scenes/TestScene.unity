@@ -969,7 +969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a7d89bb11bb5f4fbe33c596cf8e0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evidencename: Bola
+  evidencename: Bola2
   sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   desc: Karballo Karballez
   prompt: {fileID: 1311724251}
@@ -7527,7 +7527,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a7d89bb11bb5f4fbe33c596cf8e0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  evidencename: Bola
+  evidencename: Bola3
   sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   desc: Karballo Karballez
   prompt: {fileID: 433392991}
@@ -10770,7 +10770,6 @@ GameObject:
   - component: {fileID: 2071196155}
   - component: {fileID: 2071196154}
   - component: {fileID: 2071196153}
-  - component: {fileID: 2071196157}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -10861,33 +10860,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &2071196157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2071196152}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa13bbe7e866c864ebe746940645136e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemslot:
-  - {fileID: 103788640}
-  - {fileID: 2109691493}
-  - {fileID: 1702615984}
-  - {fileID: 1598754459}
-  - {fileID: 774199352}
-  - {fileID: 292627905}
-  - {fileID: 1848280076}
-  - {fileID: 582640825}
-  - {fileID: 1871318069}
-  - {fileID: 1701005562}
-  pi: {fileID: 0}
-  menuUI: {fileID: 0}
-  invUI: {fileID: 0}
-  stateUI: {fileID: 0}
 --- !u!1 &2075316589
 GameObject:
   m_ObjectHideFlags: 0
