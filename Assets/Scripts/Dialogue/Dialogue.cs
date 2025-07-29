@@ -96,9 +96,14 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             ContinueStory();
         }
     }
+    public bool IsActive() //Devuelve el bool para el InventoryManager. Es necesario para saber si hay un dialogo activo o no cuando se activa el menu.
+    {
+        return dialogueplaying;
+    }
 
     private void ContinueStory()
     {
+        UpdateStats();
         if (currentstory.canContinue)
         {
             if (showlinecor != null)
@@ -170,6 +175,13 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         return pi != null;
     }
 
+    public void UpdateStats()
+    {
+        currentstory.variablesState["strg"] = charinfo.GetStr();
+        currentstory.variablesState["inte"] = charinfo.GetInte();
+        currentstory.variablesState["refl"] = charinfo.GetRefl();
+    }
+
     public void EnterDialoguemod(TextAsset InkJSON)
     {
         currentstory = new Story(InkJSON.text);
@@ -184,11 +196,16 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             return invman.SearchEvidence(name);
         });
+        currentstory.BindExternalFunction("GiveEvidence" ,(string name, string sprite, string desc) =>
+        {
+            invman.AddItemInk(name,sprite,desc);
+        });
 
         ContinueStory();
 
         if (TryGetPlayerInput())
         {
+
             pi.SwitchCurrentActionMap("DialogueControl");
         }
     }

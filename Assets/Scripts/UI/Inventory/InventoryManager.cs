@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 
 public class InventoryManager : MonoBehaviour
@@ -13,10 +14,11 @@ public class InventoryManager : MonoBehaviour
     public ItemSlot[] itemslot;
 
     [SerializeField] private PlayerInput pi;
-
     [SerializeField] private GameObject menuUI; //Tiene de hijos a inv y state
     [SerializeField] private GameObject invUI;
     [SerializeField] private GameObject stateUI;
+
+    private Dialogue dialogue;
 
     private bool isactive;
 
@@ -24,6 +26,7 @@ public class InventoryManager : MonoBehaviour
     void Awake()
     {
         playercon = new PlayerControls();
+        dialogue = GameObject.Find("DialogueManager").GetComponent<Dialogue>();
     }
     private void OnEnable()
     {
@@ -48,7 +51,15 @@ public class InventoryManager : MonoBehaviour
         else
         {
             DeactivateMenu();
-            pi.SwitchCurrentActionMap("Player");
+            if (dialogue.IsActive()) //Que barbaridad de codigo. Este if me ha solucionado dos problemas gordisimos
+            {
+                pi.SwitchCurrentActionMap("DialogueControl");
+            }
+
+            else 
+            {
+                pi.SwitchCurrentActionMap("Player");
+            }
         }
     }
 
@@ -75,6 +86,12 @@ public class InventoryManager : MonoBehaviour
         invUI.SetActive(false);
     }
 
+    public void AddItemInk(string name, string spritename, string desc)
+    {
+        Sprite sprite = Resources.Load<Sprite>($"Sprites/Evidences/{spritename}");
+        Debug.Log(sprite.name);
+        AddItem(name, sprite, desc);
+    }
     public void AddItem(string name, Sprite sprite, string desc)
     {
         for (int i = 0; i < itemslot.Length; i++)

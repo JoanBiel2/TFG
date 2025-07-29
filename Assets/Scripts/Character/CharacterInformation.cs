@@ -27,11 +27,15 @@ public class CharacterInformation : MonoBehaviour
     [SerializeField] private TextMeshProUGUI leveltext;
     [SerializeField] private TextMeshProUGUI points;
 
+    private Dialogue dialogue;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        dialogue = GameObject.Find("DialogueManager").GetComponent<Dialogue>();
         stats.inte = 1;
-        stats.str = 1;
+        stats.str = 10;
         stats.refl = 1;
 
         level.lvl = 1;
@@ -45,7 +49,7 @@ public class CharacterInformation : MonoBehaviour
         leveltext.text = "Level: " + level.lvl;
         points.text = "Avaiable Points: " + level.points;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -55,6 +59,18 @@ public class CharacterInformation : MonoBehaviour
             points.text = "Avaiable Points: " + level.points;
             level.exp = level.exp-level.cap;
         }
+    }
+    public int GetStr()
+    {
+        return stats.str;
+    }
+    public int GetInte()
+    {
+        return stats.inte;
+    }
+    public int GetRefl()
+    {
+        return stats.refl;
     }
 
     public void LevelUp(string stat)
@@ -82,6 +98,7 @@ public class CharacterInformation : MonoBehaviour
             leveltext.text = "Level: " + level.lvl;
             level.points--;
             points.text = "Avaiable Points: " + level.points;
+            dialogue.UpdateStats();
         }
     }
     public void AddExpItem(int expitem)
