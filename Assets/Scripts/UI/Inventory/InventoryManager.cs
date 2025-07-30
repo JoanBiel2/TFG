@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -14,9 +15,16 @@ public class InventoryManager : MonoBehaviour
     public ItemSlot[] itemslot;
 
     [SerializeField] private PlayerInput pi;
+
     [SerializeField] private GameObject menuUI; //Tiene de hijos a inv y state
     [SerializeField] private GameObject invUI;
     [SerializeField] private GameObject stateUI;
+
+    //Pop-up de el objeto recogido del suelo
+    [SerializeField] private Image popup;
+    [SerializeField] private TextMeshProUGUI textevidence;
+    [SerializeField] private Image imageevidence;
+    public float fade = 3f;
 
     private Dialogue dialogue;
 
@@ -94,6 +102,9 @@ public class InventoryManager : MonoBehaviour
     }
     public void AddItem(string name, Sprite sprite, string desc)
     {
+        StartCoroutine(FadeOut());
+        textevidence.text = name;
+        imageevidence.sprite = sprite;
         for (int i = 0; i < itemslot.Length; i++)
         {
             if (itemslot[i].isFull == false)
@@ -102,6 +113,44 @@ public class InventoryManager : MonoBehaviour
                 return;
             }
         }
+    }
+    private System.Collections.IEnumerator FadeOut()
+    {
+        float waittime = 1f;
+        float elapsed = 0f;
+
+        // Asegurarse de que el popup es totalmente visible al principio
+        popup.color = new Color(popup.color.r, popup.color.g, popup.color.b, 0.8f);
+        textevidence.color = new Color(textevidence.color.r, textevidence.color.g, textevidence.color.b, 0.8f);
+        imageevidence.color = new Color(imageevidence.color.r, imageevidence.color.g, imageevidence.color.b, 0.8f);
+        popup.raycastTarget = true;
+
+        // Espera antes de comenzar el fade
+        yield return new WaitForSeconds(waittime);
+
+        Color startPanelColor = popup.color;
+        Color startTextColor = textevidence.color;
+        Color startImageColor = imageevidence.color;
+
+        // Iniciar el fade-out
+        while (elapsed < fade)
+        {
+            elapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(0.8f, 0f, elapsed / fade);
+
+            popup.color = new Color(startPanelColor.r, startPanelColor.g, startPanelColor.b, alpha);
+            textevidence.color = new Color(startTextColor.r, startTextColor.g, startTextColor.b, alpha);
+            imageevidence.color = new Color(startImageColor.r, startImageColor.g, startImageColor.b, alpha);
+
+            yield return null;
+        }
+
+        // Asegurar que todo queda en alpha 0
+        popup.color = new Color(startPanelColor.r, startPanelColor.g, startPanelColor.b, 0f);
+        textevidence.color = new Color(startTextColor.r, startTextColor.g, startTextColor.b, 0f);
+        imageevidence.color = new Color(startImageColor.r, startImageColor.g, startImageColor.b, 0f);
+
+        popup.raycastTarget = false;
     }
 
     public void DeselectAllSlots()
@@ -119,12 +168,10 @@ public class InventoryManager : MonoBehaviour
         ItemSlot result = Array.Find(itemslot, slot => slot.itemname == name);
         if (result == null)
         {
-            Debug.Log("No tienes esa prueba en el inventario");
             found = false;
         }
         else
         {
-            Debug.Log("Tienes la prueba");
             found = true;
         }
         return found;

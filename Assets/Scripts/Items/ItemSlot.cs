@@ -5,14 +5,12 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
 {
-    //=========ITEM DATA=========//
+
     public string itemname;
     public Sprite itemsprite;
     public bool isFull;
     public string itemdesc;
 
-
-    //=========ITEM SLOT=========//
     [SerializeField] private Image ItemImage;
 
     public GameObject selectedShader;
@@ -20,18 +18,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
 
     private InventoryManager inventorymanager;
 
+    public Image itemDescriptionimage;
+    public TMP_Text ItemDesciptionNameText;
+    public TMP_Text ItemDesciptionText;
 
     private void Start()
     {
         inventorymanager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
     }
-
-    //=========ITEM DESCRIPTION SLOT=========//
-    public Image itemDescriptionimage;
-    public TMP_Text ItemDesciptionNameText;
-    public TMP_Text ItemDesciptionText;
-
-
     public void AddItem(string name, Sprite sprite, string desc) //lo del mesh tiene que estar vinculado a un Sprite
     {
         this.itemname = name;
