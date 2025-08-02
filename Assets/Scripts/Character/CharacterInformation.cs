@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class CharacterInformation : MonoBehaviour
+public class CharacterInformation : MonoBehaviour, DataPersistance
 {
     public struct Stats //El jugador puede tomar diferentes decisiones dependiendo de las estadisticas que tenga 
     {
@@ -34,9 +34,6 @@ public class CharacterInformation : MonoBehaviour
     {
 
         dialogue = GameObject.Find("DialogueManager").GetComponent<Dialogue>();
-        stats.inte = 1;
-        stats.str = 10;
-        stats.refl = 1;
 
         level.lvl = 1;
         level.points = 0;
@@ -60,6 +57,21 @@ public class CharacterInformation : MonoBehaviour
             level.exp = level.exp-level.cap;
         }
     }
+
+    public void LoadData(GameData data)
+    {
+        this.stats.str = data.str;
+        this.stats.inte = data.inte;
+        this.stats.refl = data.refl;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.str = this.stats.str;
+        data.inte = this.stats.inte;
+        data.refl = this.stats.refl;
+    }
+
     public int GetStr()
     {
         return stats.str;

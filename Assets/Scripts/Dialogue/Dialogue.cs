@@ -103,7 +103,6 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     private void ContinueStory()
     {
-        UpdateStats();
         if (currentstory.canContinue)
         {
             if (showlinecor != null)
@@ -117,6 +116,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             ExitDialogueMod();
         }
+        UpdateStats();
     }
     private IEnumerator ShowLine(string line)
     {
@@ -177,9 +177,11 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     public void UpdateStats()
     {
-        currentstory.variablesState["strg"] = charinfo.GetStr();
-        currentstory.variablesState["inte"] = charinfo.GetInte();
-        currentstory.variablesState["refl"] = charinfo.GetRefl();
+        if (currentstory != null) {
+            currentstory.variablesState["strg"] = charinfo.GetStr();
+            currentstory.variablesState["inte"] = charinfo.GetInte();
+            currentstory.variablesState["refl"] = charinfo.GetRefl();
+        }
     }
 
     public void EnterDialoguemod(TextAsset InkJSON)
