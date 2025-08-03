@@ -9833,6 +9833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34646bd7136b8241b91e5f35b932bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  filename: data.game
 --- !u!1 &1779370205
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,11 +7,17 @@ public class GameData
     public int str;
     public int inte;
     public int refl;
+    public int exp;
+    public int lvl;
+    public int points;
 
     public GameData()
     {
         this.str = 1;
         this.inte = 1;
         this.refl = 1;
-    }
+        this.points = 0;
+        this.lvl = 1;
+        this.exp = 0;
+}
 }

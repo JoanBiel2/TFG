@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 public class DataManager : MonoBehaviour
 {
+    [SerializeField] private string filename;
+    private FileDataHandler datahandler;
+    
     private GameData gamedata;
     private List<DataPersistance> datapersistancelist;
     public static DataManager instance {get; private set;}
@@ -20,6 +23,7 @@ public class DataManager : MonoBehaviour
     }
     private void Start()
     {
+        this.datahandler = new FileDataHandler(Application.persistentDataPath, filename);
         this.datapersistancelist = FindDataPersostance();
         LoadGame();
     }
@@ -30,6 +34,8 @@ public class DataManager : MonoBehaviour
     }
     public void LoadGame()
     {
+        this.gamedata = datahandler.Load();
+        
         if(this.gamedata == null) //No hay partida guardada
         {
             Debug.Log("No hay partida guardada");
@@ -39,9 +45,6 @@ public class DataManager : MonoBehaviour
         {
             dataper.LoadData(gamedata);
         }
-        Debug.Log("Load Str = " + gamedata.str);
-        Debug.Log("Load Inte = " + gamedata.inte);
-        Debug.Log("Load Refl = " + gamedata.refl);
     }
     public void SaveGame()
     {
@@ -49,9 +52,7 @@ public class DataManager : MonoBehaviour
         {
             dataper.SaveData(ref gamedata);
         }
-        Debug.Log("Save Str = " + gamedata.str);
-        Debug.Log("Save Inte = " + gamedata.inte);
-        Debug.Log("Save Refl = " + gamedata.refl);
+        datahandler.Save(gamedata);
     }
     private void OnApplicationQuit()
     {

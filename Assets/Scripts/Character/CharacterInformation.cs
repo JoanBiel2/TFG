@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using static CharacterInformation;
 
 public class CharacterInformation : MonoBehaviour, DataPersistance
 {
@@ -39,12 +40,6 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
         level.points = 0;
         level.exp = 0;
         level.cap = 100;
-
-        strtext.text = "Strength: " + stats.str;
-        inttext.text = "Intelligence: " + stats.inte;
-        refltext.text = "Reflexes: " + stats.refl;
-        leveltext.text = "Level: " + level.lvl;
-        points.text = "Avaiable Points: " + level.points;
     }
     
     // Update is called once per frame
@@ -58,11 +53,25 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
         }
     }
 
+    public void WriteStats()
+    {
+        strtext.text = "Strength: " + stats.str;
+        inttext.text = "Intelligence: " + stats.inte;
+        refltext.text = "Reflexes: " + stats.refl;
+        leveltext.text = "Level: " + level.lvl;
+        points.text = "Avaiable Points: " + level.points;
+    }
+
     public void LoadData(GameData data)
     {
         this.stats.str = data.str;
         this.stats.inte = data.inte;
         this.stats.refl = data.refl;
+        this.level.exp = data.exp;
+        this.level.lvl = data.lvl;
+        this.level.points = data.points;
+
+        WriteStats();
     }
 
     public void SaveData(ref GameData data)
@@ -70,6 +79,9 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
         data.str = this.stats.str;
         data.inte = this.stats.inte;
         data.refl = this.stats.refl;
+        data.exp = this.level.exp;
+        data.lvl = this.level.lvl;
+        data.points = this.level.points;
     }
 
     public int GetStr()
