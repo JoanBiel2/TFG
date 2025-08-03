@@ -1,7 +1,8 @@
-using UnityEngine;
-using System.Linq;
 using Ink.Parsed;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
@@ -13,20 +14,19 @@ public class DataManager : MonoBehaviour
     public static DataManager instance {get; private set;}
 
 
-    private void Awake()
-    {
-        if(instance != null)
-        {
-            Debug.LogError("Solo deberia haber una instancia");
-        }
-        instance = this;
-    }
     private void Start()
     {
+        StartCoroutine(LoadGameNextFrame());
+    }
+
+    private IEnumerator LoadGameNextFrame()
+    {
+        yield return null; // Espera un frame para que todos los objetos hagan su Awake/Start
         this.datahandler = new FileDataHandler(Application.persistentDataPath, filename);
         this.datapersistancelist = FindDataPersostance();
         LoadGame();
     }
+
 
     public void NewGame()
     {

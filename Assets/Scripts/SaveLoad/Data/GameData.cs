@@ -11,6 +11,8 @@ public class GameData
     public int lvl;
     public int points;
 
+    public Vector3 playerpos;
+
     public GameData()
     {
         this.str = 1;
@@ -19,5 +21,7 @@ public class GameData
         this.points = 0;
         this.lvl = 1;
         this.exp = 0;
-}
+
+        this.playerpos = Vector3.zero;
+    }
 }

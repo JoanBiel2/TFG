@@ -2,9 +2,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, DataPersistance
 {
-
     private float walk = 5f;
     private float run = 15f;
     private Rigidbody rb;
@@ -13,7 +12,7 @@ public class PlayerController : MonoBehaviour
     bool is_running;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-   private void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         pi = GetComponent<PlayerInput>();
@@ -24,27 +23,32 @@ public class PlayerController : MonoBehaviour
     {
         input = pi.actions["Move"].ReadValue<Vector2>();
         is_running = pi.actions["Sprint"].IsPressed();
-
     }
     private void FixedUpdate()
     {
-        float speed;
-        if (is_running) speed = run;
-        else speed = walk;
-
+        float speed = is_running ? run : walk;
         Vector3 move = new Vector3(input.x, 0f, input.y);
         Vector3 moveDir = move.normalized;
 
-        // Aplicar movimiento
         rb.linearVelocity = moveDir * speed;
 
-        // Rotar hacia la dirección de movimiento si hay input
         if (moveDir != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
         }
     }
+    public void LoadData(GameData data)
+    {
+        transform.position = data.playerpos;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        Debug.Log("PlayerController: Guardando posiciÃ³n: " + transform.position);
+        data.playerpos = transform.position;
+    }
+
 
 }
 

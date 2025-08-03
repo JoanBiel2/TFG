@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using static CharacterInformation;
 
 public class CharacterInformation : MonoBehaviour, DataPersistance
 {
