@@ -41,13 +41,7 @@ public class PlayerController : MonoBehaviour, DataPersistance
     }
     public void LoadData(GameData data)
     {
-        //if (rb == null) rb = GetComponent<Rigidbody>();
-
-        //rb.isKinematic = true;
         rb.position = data.playerpos;
-        //rb.linearVelocity = Vector3.zero;
-        //rb.angularVelocity = Vector3.zero;
-        //rb.isKinematic = false;
     }
 
 
