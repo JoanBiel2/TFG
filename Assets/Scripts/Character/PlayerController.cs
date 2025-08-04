@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,8 +41,16 @@ public class PlayerController : MonoBehaviour, DataPersistance
     }
     public void LoadData(GameData data)
     {
-        transform.position = data.playerpos;
+        //if (rb == null) rb = GetComponent<Rigidbody>();
+
+        //rb.isKinematic = true;
+        rb.position = data.playerpos;
+        //rb.linearVelocity = Vector3.zero;
+        //rb.angularVelocity = Vector3.zero;
+        //rb.isKinematic = false;
     }
+
+
 
     public void SaveData(ref GameData data)
     {

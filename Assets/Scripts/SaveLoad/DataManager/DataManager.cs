@@ -14,19 +14,21 @@ public class DataManager : MonoBehaviour
     public static DataManager instance {get; private set;}
 
 
-    private void Start()
+    private void Awake()
     {
-        StartCoroutine(LoadGameNextFrame());
+        if (instance != null)
+        {
+            Debug.LogError("Hay mas de una instancia de DataManager");
+        }
+        instance = this;
     }
 
-    private IEnumerator LoadGameNextFrame()
+    private void Start()
     {
-        yield return null; // Espera un frame para que todos los objetos hagan su Awake/Start
         this.datahandler = new FileDataHandler(Application.persistentDataPath, filename);
         this.datapersistancelist = FindDataPersostance();
         LoadGame();
     }
-
 
     public void NewGame()
     {
