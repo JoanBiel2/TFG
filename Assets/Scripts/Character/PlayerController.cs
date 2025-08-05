@@ -41,8 +41,11 @@ public class PlayerController : MonoBehaviour, DataPersistance
     }
     public void LoadData(GameData data)
     {
+        rb.isKinematic = true; // Evita que la física lo empuje antes de tiempo
         rb.position = data.playerpos;
+        rb.isKinematic = false;
     }
+
 
 
 

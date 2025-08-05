@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Windows;
 
 
 [System.Serializable]
@@ -13,7 +15,16 @@ public class GameData
 
     public Vector3 playerpos;
 
-    public ItemSlot[] inventory;
+    [System.Serializable]
+    public class ItemData
+    {
+        public string name;
+        public string spriteName;
+        public string description;
+    }
+
+    public ItemData[] inventory;
+
 
     public GameData()
     {
@@ -24,9 +35,6 @@ public class GameData
         this.lvl = 1;
         this.exp = 0;
 
-        this.playerpos = Vector3.zero;
-
-        this.inventory = new ItemSlot[10];
-
+        this.playerpos = new Vector3(0, 1f, 0); //Poner posición inicial
     }
 }

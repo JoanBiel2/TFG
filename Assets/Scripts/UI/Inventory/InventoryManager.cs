@@ -1,9 +1,14 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static GameData;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 
 public class InventoryManager : MonoBehaviour, DataPersistance
@@ -63,7 +68,7 @@ public class InventoryManager : MonoBehaviour, DataPersistance
                 pi.SwitchCurrentActionMap("DialogueControl");
             }
 
-            else 
+            else
             {
                 pi.SwitchCurrentActionMap("Player");
             }
@@ -86,7 +91,7 @@ public class InventoryManager : MonoBehaviour, DataPersistance
         menuUI.SetActive(false);
         isactive = false;
     }
-    
+
     public void ButtonState()
     {
         stateUI.SetActive(true);
@@ -174,13 +179,37 @@ public class InventoryManager : MonoBehaviour, DataPersistance
         }
         return found;
     }
-    public void LoadData(GameData data)
-    {
-        itemslot = data.inventory;
-    }
-
     public void SaveData(ref GameData data)
     {
-        data.inventory = itemslot;
+        List<ItemData> savedItems = new List<ItemData>();
+
+        foreach (var slot in itemslot)
+        {
+            if (slot.isFull && slot.itemsprite != null)
+            {
+                savedItems.Add(new ItemData
+                {
+                    name = slot.itemname,
+                    spriteName = slot.itemsprite.name,
+                    description = slot.itemdesc
+                });
+            }
+
+        }
+        data.inventory = savedItems.ToArray();
     }
+
+
+    public void LoadData(GameData data)
+    {
+        if (data.inventory == null)
+            return; // No hay datos de inventario guarda
+        for (int i = 0; i < data.inventory.Length && i < itemslot.Length; i++)
+        {
+            ItemData savedItem = data.inventory[i];
+            Sprite sprite = Resources.Load<Sprite>($"Sprites/Evidences/{savedItem.spriteName}");
+            itemslot[i].AddItem(savedItem.name, sprite, savedItem.description);
+        }
+    }
+
 }
