@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour, DataPersistance
 
     public void SaveData(ref GameData data)
     {
-        Debug.Log("PlayerController: Guardando posición: " + transform.position);
         data.playerpos = transform.position;
     }
 

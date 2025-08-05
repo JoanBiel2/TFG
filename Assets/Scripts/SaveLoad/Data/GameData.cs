@@ -13,6 +13,8 @@ public class GameData
 
     public Vector3 playerpos;
 
+    public ItemSlot[] inventory;
+
     public GameData()
     {
         this.str = 1;
@@ -23,5 +25,8 @@ public class GameData
         this.exp = 0;
 
         this.playerpos = Vector3.zero;
+
+        this.inventory = new ItemSlot[10];
+
     }
 }

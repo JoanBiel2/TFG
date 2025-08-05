@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour, DataPersistance
 {
 
     private PlayerControls playercon;
@@ -59,7 +58,7 @@ public class InventoryManager : MonoBehaviour
         else
         {
             DeactivateMenu();
-            if (dialogue.IsActive()) //Que barbaridad de codigo. Este if me ha solucionado dos problemas gordisimos
+            if (dialogue.IsActive())
             {
                 pi.SwitchCurrentActionMap("DialogueControl");
             }
@@ -164,7 +163,6 @@ public class InventoryManager : MonoBehaviour
     public bool SearchEvidence(string name)
     {
         bool found;
-        Debug.Log(name);
         ItemSlot result = Array.Find(itemslot, slot => slot.itemname == name);
         if (result == null)
         {
@@ -175,5 +173,14 @@ public class InventoryManager : MonoBehaviour
             found = true;
         }
         return found;
+    }
+    public void LoadData(GameData data)
+    {
+        itemslot = data.inventory;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.inventory = itemslot;
     }
 }
