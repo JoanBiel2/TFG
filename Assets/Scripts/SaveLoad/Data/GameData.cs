@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -25,6 +26,8 @@ public class GameData
 
     public ItemData[] inventory;
 
+    public SerializableDictionary<string, bool> evidencedic; //Pistas que el jugador ha recogido, y se tienen que eliminar del mundo
+
 
     public GameData()
     {
@@ -36,5 +39,7 @@ public class GameData
         this.exp = 0;
 
         this.playerpos = new Vector3(0, 1f, 0); //Poner posición inicial
+
+        evidencedic = new SerializableDictionary<string, bool>();
     }
 }
