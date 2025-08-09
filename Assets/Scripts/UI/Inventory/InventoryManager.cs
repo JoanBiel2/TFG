@@ -18,6 +18,7 @@ public class InventoryManager : MonoBehaviour, DataPersistance
     private InputAction menu;
     public ItemSlot[] itemslot;
 
+    [SerializeField] private CameraFollow cf;
     [SerializeField] private PlayerInput pi;
 
     [SerializeField] private GameObject menuUI; //Tiene de hijos a inv y state
@@ -58,11 +59,13 @@ public class InventoryManager : MonoBehaviour, DataPersistance
         if (isactive)
         {
             ActivateMenu();
+            cf.DisableCameraActions();
             pi.SwitchCurrentActionMap("UI");
         }
         else
         {
             DeactivateMenu();
+            cf.EnableCameraActions();
             if (dialogue.IsActive())
             {
                 pi.SwitchCurrentActionMap("DialogueControl");

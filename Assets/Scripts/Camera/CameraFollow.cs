@@ -72,14 +72,19 @@ public class CameraFollow : MonoBehaviour
             transform.position += move * controllerdragspeed * Time.deltaTime;
         }
     }
-    private void OnEnable()
+
+    public void DisableCameraActions()
     {
-        cameramoveinput.action.Enable();
+        cameramoveinput?.action.Disable();
+        camerazoomin?.action.Disable();
+        camerazoomout?.action.Disable();
     }
 
-    private void OnDisable()
+    public void EnableCameraActions()
     {
-        cameramoveinput.action.Disable();
+        cameramoveinput?.action.Enable();
+        camerazoomin?.action.Enable();
+        camerazoomout?.action.Enable();
     }
 
     private void HandleZoom()
