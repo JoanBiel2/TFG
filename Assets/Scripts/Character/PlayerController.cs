@@ -46,9 +46,6 @@ public class PlayerController : MonoBehaviour, DataPersistance
         rb.isKinematic = false;
     }
 
-
-
-
     public void SaveData(ref GameData data)
     {
         data.playerpos = transform.position;

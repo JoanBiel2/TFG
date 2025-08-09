@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -11,15 +12,25 @@ public class CameraFollow : MonoBehaviour
     private bool is_dragging;
     private float dragSpeed = 3f;
 
-    private float zoomSpeed = 150f;
-    private float minZoom = 10f;
-    private float maxZoom = 20f;
+    private float zoomspeedpad = 20;
+    private float zoomspeedmouse = 150;
+    private float minzoom = 10f;
+    private float maxzoom = 20f;
     private float maxdist = 30f;
 
     [SerializeField] private Transform player;
-    [SerializeField] private InputActionReference cameraMoveInput; // Referencia al InputAction de movimiento de cámara con stick
-    [SerializeField] private float controllerDragSpeed;
+    [SerializeField] private InputActionReference cameramoveinput; // Para mover la camara con el stick derecho
+    [SerializeField] private InputActionReference camerazoomin; // Hace el zoom con el d-pad del mando
+    [SerializeField] private InputActionReference camerazoomout; // Hace el zoom con el d-pad del mando
+    [SerializeField] private float controllerdragspeed;
 
+    private enum ZoomDevice
+    {
+        None,
+        Mouse,
+        Gamepad
+    }
+    private ZoomDevice lastzoomdevice = ZoomDevice.None;
 
 
     private void Awake()
@@ -29,8 +40,8 @@ public class CameraFollow : MonoBehaviour
 
     public void OnDrag(InputAction.CallbackContext ctx)
     {
-        if (ctx.started) _origin = GetMousePosition(); //Guarda la posició del mouse cada vegada que donem al click dret
-        is_dragging = ctx.started || ctx.performed; //Serà true si l'acció a començat, o encara esta en curs
+        if (ctx.started) _origin = GetMousePosition(); //Guarda la posición del mouse cada vez que damos al click derecho
+        is_dragging = ctx.started || ctx.performed; //Será true si la acción a comenzado, o aun esta en curso
     }
 
     private void LateUpdate()
@@ -53,37 +64,64 @@ public class CameraFollow : MonoBehaviour
     }
     private void HandleControlDrag() //Se encarga del movimiento de la camara del mando
     {
-        Vector2 input = cameraMoveInput.action.ReadValue<Vector2>();
+        Vector2 input = cameramoveinput.action.ReadValue<Vector2>();
 
         if (input.sqrMagnitude > 0.01f)
         {
             Vector3 move = new Vector3(input.x, 0, input.y);
-            transform.position += move * controllerDragSpeed * Time.deltaTime;
+            transform.position += move * controllerdragspeed * Time.deltaTime;
         }
     }
     private void OnEnable()
     {
-        cameraMoveInput?.action.Enable();
+        cameramoveinput.action.Enable();
     }
 
     private void OnDisable()
     {
-        cameraMoveInput?.action.Disable();
+        cameramoveinput.action.Disable();
     }
-
 
     private void HandleZoom()
     {
         float scroll = Mouse.current.scroll.ReadValue().y;
+        float zoomin = camerazoomin.action.ReadValue<float>();
+        float zoomout = camerazoomout.action.ReadValue<float>();
 
-        if (scroll != 0f)
+        float controllerzoom = zoomin - zoomout;
+        float zoominput = scroll + controllerzoom;
+
+        // Detectar último dispositivo usado
+        if (Mathf.Abs(scroll) > 0.01f)
         {
+            lastzoomdevice = ZoomDevice.Mouse;
+        }
+        else if (Mathf.Abs(controllerzoom) > 0.01f)
+        {
+            lastzoomdevice = ZoomDevice.Gamepad;
+        }
+        // Zona muerta
+        if (Mathf.Abs(zoominput) > 0.01f)
+        {
+            float zoomspeed;
+
+            if (lastzoomdevice == ZoomDevice.Gamepad)
+            {
+                zoomspeed = zoomspeedpad;
+            }
+            else
+            {
+                zoomspeed = zoomspeedmouse;
+            }
+
             Vector3 pos = transform.position;
-            pos.y -= scroll * zoomSpeed * Time.deltaTime;
-            pos.y = Mathf.Clamp(pos.y, minZoom, maxZoom);
+            pos.y -= zoominput * zoomspeed * Time.deltaTime;
+            pos.y = Mathf.Clamp(pos.y, minzoom, maxzoom);
             transform.position = pos;
         }
     }
+
+
 
     private void ClampDistanceToPlayer()
     {
