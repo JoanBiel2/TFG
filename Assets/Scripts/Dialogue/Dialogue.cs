@@ -14,7 +14,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private static Dialogue instance;
 
     [Header("Dialogue UI")]
-    [SerializeField] private GameObject dialoguepanel;
+    [SerializeField] public GameObject dialoguepanel;
     [SerializeField] private TextMeshProUGUI textcomponent;
     [SerializeField] private TextMeshProUGUI namecomponent;
     [SerializeField] private Animator potraitanim;
@@ -259,8 +259,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             choicebutton.SetActive(false);
         }
     }
-
-    private IEnumerator SelectedFirstChoice()
+    public IEnumerator SelectedFirstChoice()
     {
         EventSystem.current.SetSelectedGameObject(null);
         yield return new WaitForEndOfFrame();

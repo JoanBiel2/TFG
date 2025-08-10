@@ -882,6 +882,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ffdde5b565e2c34486022afc84e18c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pi: {fileID: 276115808}
+  inv: {fileID: 196563804}
   pauseui: {fileID: 749269472}
   optionsui: {fileID: 1026521236}
   mainmenufirst: {fileID: 1744705741}
@@ -5453,6 +5455,7 @@ GameObject:
   - component: {fileID: 1174837811}
   - component: {fileID: 1174837810}
   - component: {fileID: 1174837809}
+  - component: {fileID: 1174837812}
   m_Layer: 0
   m_Name: DialogueCanvas
   m_TagString: Untagged
@@ -5543,6 +5546,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!225 &1174837812
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174837807}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1179302838
 GameObject:
   m_ObjectHideFlags: 0

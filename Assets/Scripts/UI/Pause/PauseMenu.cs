@@ -10,6 +10,8 @@ public class PauseMenu : MonoBehaviour
     private PlayerControls playercon;
     private InputAction menu;
 
+    [SerializeField] private PlayerInput pi;
+
     [SerializeField]private InventoryManager inv;
 
     [SerializeField] private GameObject pauseui;
@@ -19,9 +21,13 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject mainmenufirst; //Para el menu principal
     [SerializeField] private GameObject settingsmenufirst; //Para el menu de opciones
 
+    private Dialogue dialogue;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        dialogue = GameObject.Find("DialogueManager").GetComponent<Dialogue>();
         playercon = new PlayerControls();
     }
 
@@ -51,10 +57,20 @@ public class PauseMenu : MonoBehaviour
             if (ispaused)
             {
                 ActivateMenu();
+                pi.SwitchCurrentActionMap("UI");
             }
             else
             {
                 DeactivateMenu();
+                if (dialogue.IsActive())
+                {
+                    pi.SwitchCurrentActionMap("DialogueControl");
+                }
+
+                else
+                {
+                    pi.SwitchCurrentActionMap("Player");
+                }
             }
         }
     }
@@ -66,6 +82,10 @@ public class PauseMenu : MonoBehaviour
         pauseui.SetActive(true);
 
         EventSystem.current.SetSelectedGameObject(mainmenufirst); //El propio eventsystem se ocupa del movimiento por el menu.
+
+        CanvasGroup canvasgroup = dialogue.dialoguepanel.GetComponentInParent<CanvasGroup>(); //Sirve para que desde el menu, el jugador no pueda acceder a las opciones
+        canvasgroup.interactable = false;
+        canvasgroup.blocksRaycasts = false;
     }
 
     public void DeactivateMenu()
@@ -76,7 +96,11 @@ public class PauseMenu : MonoBehaviour
         optionsui.SetActive(false);
         ispaused = false;
 
-        EventSystem.current.SetSelectedGameObject(null);
+        StartCoroutine(dialogue.SelectedFirstChoice());
+
+        CanvasGroup canvasgroup = dialogue.dialoguepanel.GetComponentInParent<CanvasGroup>(); //Sirve para que desde el menu, el jugador no pueda acceder a las opciones
+        canvasgroup.interactable = true;
+        canvasgroup.blocksRaycasts = true;
     }
 
     public void Exit()

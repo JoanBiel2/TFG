@@ -91,12 +91,22 @@ public class InventoryManager : MonoBehaviour, DataPersistance
         invUI.SetActive(true);
 
         EventSystem.current.SetSelectedGameObject(button.gameObject);
+
+        CanvasGroup canvasgroup = dialogue.dialoguepanel.GetComponentInParent<CanvasGroup>(); //Sirve para que desde el menu, el jugador no pueda acceder a las opciones
+        canvasgroup.interactable = false;
+        canvasgroup.blocksRaycasts = false;
     }
 
     public void DeactivateMenu()
     {
         menuUI.SetActive(false);
         isactive = false;
+
+        StartCoroutine(dialogue.SelectedFirstChoice()); //Esto es para el mando, ya que al activar el menu de pausa y inventario, desaparece la navegación con el mando
+        
+        CanvasGroup canvasgroup = dialogue.dialoguepanel.GetComponentInParent<CanvasGroup>();
+        canvasgroup.interactable = true;
+        canvasgroup.blocksRaycasts = true;
     }
 
     public void ButtonState()
