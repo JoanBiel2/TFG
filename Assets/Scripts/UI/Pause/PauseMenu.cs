@@ -10,6 +10,8 @@ public class PauseMenu : MonoBehaviour
     private PlayerControls playercon;
     private InputAction menu;
 
+    [SerializeField]private InventoryManager inv;
+
     [SerializeField] private GameObject pauseui;
     [SerializeField] private GameObject optionsui;
     private bool ispaused;
@@ -37,17 +39,23 @@ public class PauseMenu : MonoBehaviour
         menu.Disable();
     }
 
+    public bool IsPaused()
+    {
+        return ispaused;
+    }
     void Pause(InputAction.CallbackContext ctx)
     {
-        ispaused = !ispaused;
-
-        if (ispaused)
+        if (!inv.IsActive())
         {
-            ActivateMenu();
-        }
-        else
-        {
-            DeactivateMenu();
+            ispaused = !ispaused;
+            if (ispaused)
+            {
+                ActivateMenu();
+            }
+            else
+            {
+                DeactivateMenu();
+            }
         }
     }
 
@@ -82,6 +90,7 @@ public class PauseMenu : MonoBehaviour
     {
         pauseui.SetActive(false);
         optionsui.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(settingsmenufirst);
     }
 
     public void ReturnMenu()

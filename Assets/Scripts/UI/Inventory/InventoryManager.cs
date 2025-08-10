@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static GameData;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 
 public class InventoryManager : MonoBehaviour, DataPersistance
@@ -17,6 +14,8 @@ public class InventoryManager : MonoBehaviour, DataPersistance
     private PlayerControls playercon;
     private InputAction menu;
     public ItemSlot[] itemslot;
+
+    [SerializeField] private PauseMenu pause;
 
     [SerializeField] private CameraFollow cf;
     [SerializeField] private PlayerInput pi;
@@ -52,11 +51,16 @@ public class InventoryManager : MonoBehaviour, DataPersistance
     {
         menu.Disable();
     }
+
+    public bool IsActive()
+    {
+        return isactive;
+    }
     private void Inventory(InputAction.CallbackContext ctx)
     {
         isactive = !isactive;
 
-        if (isactive)
+        if (isactive && !pause.IsPaused())
         {
             ActivateMenu();
             cf.DisableCameraActions();

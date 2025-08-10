@@ -715,6 +715,7 @@ MonoBehaviour:
   - {fileID: 582640825}
   - {fileID: 1871318069}
   - {fileID: 1701005562}
+  pause: {fileID: 260514286}
   cf: {fileID: 330585548}
   pi: {fileID: 276115808}
   menuUI: {fileID: 221888150}
@@ -884,7 +885,7 @@ MonoBehaviour:
   pauseui: {fileID: 749269472}
   optionsui: {fileID: 1026521236}
   mainmenufirst: {fileID: 1744705741}
-  settingsmenufirst: {fileID: 0}
+  settingsmenufirst: {fileID: 2113881993}
 --- !u!4 &260514287
 Transform:
   m_ObjectHideFlags: 0
@@ -11534,6 +11535,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c32e22429ba6a4438a8c09c639da695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2113881993 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 369606937946010364, guid: e1b3dcfd5c2d41540b374f4a9e342f6e, type: 3}
+  m_PrefabInstance: {fileID: 634711976}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2132875692
 GameObject:
   m_ObjectHideFlags: 0
