@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterInformation : MonoBehaviour, DataPersistance
 {
@@ -21,11 +22,18 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
     private Stats stats;
     private Level level;
 
+    [Header("TextStats")]
+
     [SerializeField] private TextMeshProUGUI strtext;
     [SerializeField] private TextMeshProUGUI inttext;
     [SerializeField] private TextMeshProUGUI refltext;
     [SerializeField] private TextMeshProUGUI leveltext;
     [SerializeField] private TextMeshProUGUI points;
+
+    [Header("Exp")]
+
+    [SerializeField] AnimationCurve expcurve;
+    [SerializeField] Image expfill;
 
     private Dialogue dialogue;
 
@@ -59,6 +67,7 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
         refltext.text = "Reflexes: " + stats.refl;
         leveltext.text = "Level: " + level.lvl;
         points.text = "Avaiable Points: " + level.points;
+        expfill.fillAmount = (float)level.exp / (float)level.cap;
     }
 
     public void LoadData(GameData data)
@@ -127,5 +136,7 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
     public void AddExpItem(int expitem)
     {
         level.exp += expitem;
+        expfill.fillAmount = (float)level.exp / (float)level.cap;
+
     }
 }
