@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject optionsui;
     private bool ispaused;
 
-    [SerializeField] private GameObject mainmenufirst; //Para el menu principal
+    [SerializeField] private GameObject mainmenufirst; //Para el menu principal. Es un botón
     [SerializeField] private GameObject settingsmenufirst; //Para el menu de opciones
 
     private Dialogue dialogue;
