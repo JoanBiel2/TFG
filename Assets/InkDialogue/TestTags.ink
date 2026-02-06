@@ -51,3 +51,4 @@ Intentas levantar el cuerpo...
     No puedes levantar el cuerpo, ya que solo tienes {strg} de fuerza. Necesitas más fuerza física para moverlo. #Speaker: Narrador #Portrait: narrador_anim
 }
 -> DONE
+
