@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class DataManager : MonoBehaviour
 {
@@ -14,26 +16,38 @@ public class DataManager : MonoBehaviour
     public static DataManager instance {get; private set;}
 
 
+
+    private bool shouldLoadGame = true;
+
     private void Awake()
     {
-        if (instance != null)
+        if (instance == null)
         {
-            Debug.LogError("Hay mas de una instancia de DataManager");
-        }
-        instance = this;
-    }
+            instance = this;
+            transform.SetParent(null);
+            DontDestroyOnLoad(gameObject);
 
-    private void Start()
-    {
-        this.datahandler = new FileDataHandler(Application.persistentDataPath, filename);
-        this.datapersistancelist = FindDataPersostance();
-        LoadGame();
+            datahandler = new FileDataHandler(Application.persistentDataPath, filename);
+
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void NewGame()
     {
-        this.gamedata = new GameData();
+        gamedata = new GameData();
+        shouldLoadGame = false;
     }
+
+    public void ContinueGame()
+    {
+        shouldLoadGame = true;
+    }
+
     public void LoadGame()
     {
         this.gamedata = datahandler.Load();
@@ -46,6 +60,7 @@ public class DataManager : MonoBehaviour
         foreach(DataPersistance dataper in datapersistancelist)
         {
             dataper.LoadData(gamedata);
+            Debug.Log("Datos cargados en " + dataper.ToString());
         }
     }
     public void SaveGame()
@@ -68,4 +83,23 @@ public class DataManager : MonoBehaviour
 
         return new List<DataPersistance>(datapersistancelist);
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        datapersistancelist = FindDataPersostance();
+
+        if (shouldLoadGame)
+        {
+            LoadGame();
+        }
+        else
+        {
+            foreach (DataPersistance dataper in datapersistancelist)
+            {
+                dataper.LoadData(gamedata);
+            }
+        }
+    }
+
+
 }

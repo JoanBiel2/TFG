@@ -15,8 +15,14 @@ public class MenuManager : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(start);
     }
-    public void ChangeScene()
+    public void NewGame()
     {
+        DataManager.instance.NewGame();
+        SceneManager.LoadScene("TestScene");
+    }
+    public void LoadGame()
+    {
+        DataManager.instance.ContinueGame();
         SceneManager.LoadScene("TestScene");
     }
     public void OpenOptions()
