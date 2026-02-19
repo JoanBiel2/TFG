@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour, DataPersistance
     private Rigidbody rb;
     private PlayerInput pi;
     private Vector2 input;
+    public Animator animator;
     bool is_running;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,6 +23,8 @@ public class PlayerController : MonoBehaviour, DataPersistance
     {
         input = pi.actions["Move"].ReadValue<Vector2>();
         is_running = pi.actions["Sprint"].IsPressed();
+        Debug.Log(is_running);
+        animator.SetBool("IsRunning", is_running);
     }
     private void FixedUpdate()
     {
@@ -30,6 +33,9 @@ public class PlayerController : MonoBehaviour, DataPersistance
         Vector3 moveDir = move.normalized;
 
         rb.linearVelocity = moveDir * speed;
+
+        float currentspeed = rb.linearVelocity.magnitude * speed;
+        animator.SetFloat("Speed", currentspeed);
 
         if (moveDir != Vector3.zero)
         {
