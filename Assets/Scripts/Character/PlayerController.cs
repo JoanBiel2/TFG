@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour, DataPersistance
     {
         input = pi.actions["Move"].ReadValue<Vector2>();
         is_running = pi.actions["Sprint"].IsPressed();
-        Debug.Log(is_running);
         animator.SetBool("IsRunning", is_running);
     }
     private void FixedUpdate()
@@ -32,9 +31,12 @@ public class PlayerController : MonoBehaviour, DataPersistance
         Vector3 move = new Vector3(input.x, 0f, input.y);
         Vector3 moveDir = move.normalized;
 
-        rb.linearVelocity = moveDir * speed;
+        Vector3 velocity = rb.linearVelocity;
+        velocity.x = moveDir.x * speed;
+        velocity.z = moveDir.z * speed;
+        rb.linearVelocity = velocity;
 
-        float currentspeed = rb.linearVelocity.magnitude * speed;
+        float currentspeed = rb.linearVelocity.magnitude;
         animator.SetFloat("Speed", currentspeed);
 
         if (moveDir != Vector3.zero)

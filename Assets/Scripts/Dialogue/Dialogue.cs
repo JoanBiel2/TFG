@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Ink.UnityIntegration;
 
 public class Dialogue : MonoBehaviour, IPointerClickHandler
 {
@@ -38,6 +39,9 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private CharacterInformation charinfo;
     private InventoryManager invman;
 
+    private DialogueVariables dialoguevariables;
+    [SerializeField] private InkFile globalvariables;
+
     private void Awake()
     {
         charinfo = GameObject.Find("InventoryManager").GetComponent<CharacterInformation>();
@@ -48,6 +52,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             Debug.LogWarning("Existe mas de un dialogue en la escena");
         }
         instance = this;
+        dialoguevariables = new DialogueVariables(globalvariables.filePath);
     }
     public static Dialogue GetInstance()
     {
@@ -190,6 +195,8 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         dialogueplaying = true;
         dialoguepanel.SetActive(true);
 
+        dialoguevariables.StartListening(currentstory);
+
         currentstory.BindExternalFunction("GiveExp", (int exp) =>
         {
             charinfo.AddExpItem(exp);
@@ -216,6 +223,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     {
         currentstory.UnbindExternalFunction("GiveExp");
         currentstory.UnbindExternalFunction("SearchEvidence");
+        currentstory.UnbindExternalFunction("GiveEvidence");
+
+        dialoguevariables.StopListening(currentstory);
+
         dialogueplaying = false;
         dialoguepanel.SetActive(false);
         textcomponent.text = "";
