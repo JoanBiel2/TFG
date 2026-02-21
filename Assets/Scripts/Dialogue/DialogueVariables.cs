@@ -5,7 +5,7 @@ using System.IO;
 
 public class DialogueVariables
 {
-    private Dictionary<string, Ink.Runtime.Object> variables;
+    public Dictionary<string, Ink.Runtime.Object> variables { get; private set; }
 
     public DialogueVariables(string globalsfilepath)
     {

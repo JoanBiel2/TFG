@@ -182,7 +182,8 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     public void UpdateStats()
     {
-        if (currentstory != null) {
+        if (currentstory != null)
+        {
             currentstory.variablesState["strg"] = charinfo.GetStr();
             currentstory.variablesState["inte"] = charinfo.GetInte();
             currentstory.variablesState["refl"] = charinfo.GetRefl();
@@ -205,9 +206,9 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             return invman.SearchEvidence(name);
         });
-        currentstory.BindExternalFunction("GiveEvidence" ,(string name, string sprite, string desc) =>
+        currentstory.BindExternalFunction("GiveEvidence", (string name, string sprite, string desc) =>
         {
-            invman.AddItemInk(name,sprite,desc);
+            invman.AddItemInk(name, sprite, desc);
         });
 
         ContinueStory();
@@ -244,7 +245,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentstory.currentChoices;
-        if(currentChoices.Count > choices.Length)
+        if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("Demasiadas opciones");
         }
@@ -256,7 +257,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             choicestext[index].text = choice.text;
             index++;
         }
-        for(int i = index; i < choices.Length; i++)
+        for (int i = index; i < choices.Length; i++)
         {
             choices[i].gameObject.SetActive(false);
         }
@@ -297,5 +298,16 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         ContinueStory();
 
         inputBlocked = false;
+    }
+
+    public Ink.Runtime.Object GetVariable(string variableName)
+    {
+        Ink.Runtime.Object value = null;
+        dialoguevariables.variables.TryGetValue(variableName, out value);
+        if (value == null)
+        {
+            Debug.LogWarning("Variable " + variableName + " no encontrada.");
+        }
+        return value;
     }
 }
