@@ -773,18 +773,7 @@ MonoBehaviour:
   - {fileID: 6134037168720892536}
   - {fileID: 2755870665655945810}
   - {fileID: 5472392594146032386}
-  globalvariables:
-    inkAsset: {fileID: 102900000, guid: 3f1bb3fc397414645b28cd07f94e4148, type: 3}
-    jsonAssetDirectory: {fileID: 0}
-    jsonAsset: {fileID: 0}
-    unhandledCompileErrors: []
-    recursiveIncludeErrorPaths: []
-    errors: []
-    warnings: []
-    todos: []
-    masterInkAssets: []
-    localIncludePaths: []
-    includes: []
+  loadglobalsJSON: {fileID: 4900000, guid: c031bc11ccf0350419efb3a4c4939d39, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

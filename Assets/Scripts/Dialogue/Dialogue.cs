@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Ink.UnityIntegration;
 
 public class Dialogue : MonoBehaviour, IPointerClickHandler
 {
@@ -40,7 +39,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private InventoryManager invman;
 
     private DialogueVariables dialoguevariables;
-    [SerializeField] private InkFile globalvariables;
+    [SerializeField] private TextAsset loadglobalsJSON;
 
     private void Awake()
     {
@@ -52,7 +51,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             Debug.LogWarning("Existe mas de un dialogue en la escena");
         }
         instance = this;
-        dialoguevariables = new DialogueVariables(globalvariables.filePath);
+        dialoguevariables = new DialogueVariables(loadglobalsJSON);
     }
     public static Dialogue GetInstance()
     {
@@ -309,5 +308,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             Debug.LogWarning("Variable " + variableName + " no encontrada.");
         }
         return value;
+        //Para conseguir una variable...
+        //string variableName = ((Ink.Runetime.StringValue) DialogueManager.GetInstance().GetVariableState("Nombre_Variable")).value;
     }
 }
