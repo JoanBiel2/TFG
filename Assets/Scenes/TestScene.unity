@@ -11001,7 +11001,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 0.6650944, g: 0.97400934, b: 1, a: 1}
-  m_Intensity: 0.1
+  m_Intensity: 0.01
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -11043,7 +11043,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 384.84
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -14232,15 +14232,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3100487290639321589, guid: 63fa16fd4649276488ce4d9f05ffa506, type: 3}
       propertyPath: m_Intensity
-      value: 385.76
+      value: 387.98
       objectReference: {fileID: 0}
     - target: {fileID: 3100487290639321589, guid: 63fa16fd4649276488ce4d9f05ffa506, type: 3}
       propertyPath: m_SpotAngle
-      value: 109.464294
+      value: 85.45216
       objectReference: {fileID: 0}
     - target: {fileID: 3100487290639321589, guid: 63fa16fd4649276488ce4d9f05ffa506, type: 3}
       propertyPath: m_InnerSpotAngle
-      value: 61.973694
+      value: 48.876137
       objectReference: {fileID: 0}
     - target: {fileID: 3100487290639321589, guid: 63fa16fd4649276488ce4d9f05ffa506, type: 3}
       propertyPath: m_BounceIntensity
