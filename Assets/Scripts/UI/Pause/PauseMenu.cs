@@ -66,12 +66,26 @@ public class PauseMenu : MonoBehaviour
                 {
                     pi.SwitchCurrentActionMap("DialogueControl");
                 }
-
                 else
                 {
                     pi.SwitchCurrentActionMap("Player");
                 }
             }
+        }
+    }
+
+    public void Resume()
+    {
+        ispaused = false;
+        DeactivateMenu();
+
+        if (dialogue.IsActive())
+        {
+            pi.SwitchCurrentActionMap("DialogueControl");
+        }
+        else
+        {
+            pi.SwitchCurrentActionMap("Player");
         }
     }
 

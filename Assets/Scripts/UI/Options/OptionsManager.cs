@@ -61,10 +61,8 @@ public class OptionsManager : MonoBehaviour
         dropdown.RefreshShownValue();
         dropdown.onValueChanged.AddListener(SetResolution);
 
-        // Guardamos para aplicar si lo necesitas más tarde
         resdropdown = dropdown;
 
-        // Aplica la resolución actual
         SetResolution(currentresolutionindex);
     }
 
