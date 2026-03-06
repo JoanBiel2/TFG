@@ -44,9 +44,9 @@ public class Item : MonoBehaviour, DataPersistance
             evidencegrab = true;
             inventorymanager.AddItem(evidencename, sprite, desc);
             charinfo.AddExpItem(xpgiven);
-
-            DataManager.instance.SaveGame();
-            Destroy(gameObject);     
+            Destroy(gameObject);
+            if(DataManager.instance != null)
+                DataManager.instance.SaveGame();
         }
     }
 
