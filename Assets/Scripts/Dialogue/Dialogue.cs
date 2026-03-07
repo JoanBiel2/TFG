@@ -37,6 +37,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
     private CharacterInformation charinfo;
     private InventoryManager invman;
+    private FadeToBlack fade;
 
     private DialogueVariables dialoguevariables;
     [SerializeField] private TextAsset loadglobalsJSON;
@@ -45,6 +46,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     {
         charinfo = GameObject.Find("InventoryManager").GetComponent<CharacterInformation>();
         invman = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+        fade = GameObject.Find("FadeToBlack").GetComponent<FadeToBlack>();
 
         if (instance != null)
         {
@@ -209,6 +211,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             invman.AddItemInk(name, sprite, desc);
         });
+        currentstory.BindExternalFunction("FadeToBlack", () =>
+        {
+            StartCoroutine(fade.FadeOutFadein());
+        });
 
         ContinueStory();
 
@@ -224,6 +230,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         currentstory.UnbindExternalFunction("GiveExp");
         currentstory.UnbindExternalFunction("SearchEvidence");
         currentstory.UnbindExternalFunction("GiveEvidence");
+        currentstory.UnbindExternalFunction("FadeToBlack");
 
         dialoguevariables.StopListening(currentstory);
 
@@ -232,6 +239,18 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         textcomponent.text = "";
         pi.SwitchCurrentActionMap("Player");
     }
+    public void StopDialogue()
+    {
+        dialogueplaying = false;
+        dialoguepanel.SetActive(false);
+        textcomponent.text = "";
+    }
+    public void StartDialogue()
+    {
+        dialogueplaying = true;
+        dialoguepanel.SetActive(true);
+    }
+
     //Avanzar el dialogo con el click izquierdo (El botón de Next se hace desde los eventos en el inspector)
     public void OnPointerClick(PointerEventData eventData) //Ha dejado de funcionar por el Ink, hay que arreglarlo
     {
