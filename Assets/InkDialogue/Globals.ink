@@ -12,3 +12,6 @@ VAR exp_piernas = false
 
 //Coche
 VAR exam_coche = false
+
+//Sangre
+VAR exam_sangre = false
