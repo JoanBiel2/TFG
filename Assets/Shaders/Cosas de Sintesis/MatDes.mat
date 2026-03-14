@@ -37,9 +37,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Saturation: 0
-    - _Threshold: 0.071
+    - _Saturation: 0.9999999
+    - _Threshold: 0.3
     m_Colors:
-    - _Color: {r: 1, g: 0.24368122, b: 0, a: 1}
+    - _Color: {r: 1, g: 0.41553438, b: 0, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

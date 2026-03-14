@@ -574,6 +574,7 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -716,6 +717,21 @@ MonoBehaviour:
   camerazoomin: {fileID: -1448402640627142708, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   camerazoomout: {fileID: -595815119707099958, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   controllerdragspeed: 30
+--- !u!114 &330585549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9302e2df5c930419a12358c10def35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DetectiveVision
+  blackwhite: {fileID: 2100000, guid: 93312b00a9fa67441a8afc4458adf06d, type: 2}
+  evidence: {fileID: 2100000, guid: d21309ff112ee054eb00af5031d10693, type: 2}
+  evidenceParent: {fileID: 1490707479}
 --- !u!1 &369521402
 GameObject:
   m_ObjectHideFlags: 0
@@ -14927,6 +14943,18 @@ PrefabInstance:
       propertyPath: xpgiven
       value: 2500
       objectReference: {fileID: 0}
+    - target: {fileID: 7779422468772418657, guid: 157251ec860b0c642a42e3490324db72, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7779422468772418657, guid: 157251ec860b0c642a42e3490324db72, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -2314394898306940350, guid: 439193fef77831343bda37f025487bc3, type: 3}
+    - target: {fileID: 7779422468772418657, guid: 157251ec860b0c642a42e3490324db72, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d21309ff112ee054eb00af5031d10693, type: 2}
     - target: {fileID: 8716082119813581440, guid: 157251ec860b0c642a42e3490324db72, type: 3}
       propertyPath: m_LocalPosition.x
       value: 175.5
@@ -17000,6 +17028,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 40c9feb6-971e-4705-a10c-27daefac0491
     m_ActionName: 'Player/ZoomOut[/XInputControllerWindows/dpad/down]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9a5be476-5b32-4b6b-9fd5-6f8370e3762c
+    m_ActionName: 'Player/Vision[/Keyboard/f,/XInputControllerWindows/buttonNorth]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
@@ -18825,6 +18857,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1152144019}
     m_Modifications:
+    - target: {fileID: 869101995993924849, guid: efa3595fe43ddb14fad381ec2fee815e, type: 3}
+      propertyPath: jsonfile
+      value: 
+      objectReference: {fileID: 4900000, guid: c7d3d290cca3a4d48801a2181b9654e3, type: 3}
     - target: {fileID: 877408521195470903, guid: efa3595fe43ddb14fad381ec2fee815e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.6532815

@@ -127,18 +127,25 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private IEnumerator ShowLine(string line)
     {
         Hidechoices();
-        textcomponent.text = "";
-        yield return new WaitForSeconds(0.15f); //Para que no salte directamente a la siguiente linea de dialogo
-        cancontinue = false;
-        foreach (var letter in line.ToCharArray())
+        bool lineIsEmpty = string.IsNullOrWhiteSpace(line);
+        if (!lineIsEmpty)
         {
-            if (pi.actions["Next"].IsPressed())
+            textcomponent.text = "";
+            yield return new WaitForSeconds(0.15f);
+        }
+        cancontinue = false;
+        if (!lineIsEmpty)
+        {
+            foreach (var letter in line.ToCharArray())
             {
-                textcomponent.text = line;
-                break;
+                if (pi.actions["Next"].IsPressed())
+                {
+                    textcomponent.text = line;
+                    break;
+                }
+                textcomponent.text += letter;
+                yield return new WaitForSeconds(textSpeed);
             }
-            textcomponent.text += letter;
-            yield return new WaitForSeconds(textSpeed);
         }
         DisplayChoices();
         cancontinue = true;

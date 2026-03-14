@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "InputSystem_Actions",
     "maps": [
         {
@@ -63,6 +64,15 @@
                     "name": "ZoomOut",
                     "type": "Button",
                     "id": "40c9feb6-971e-4705-a10c-27daefac0491",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Vision",
+                    "type": "Button",
+                    "id": "9a5be476-5b32-4b6b-9fd5-6f8370e3762c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -298,6 +308,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ZoomOut",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7c7d6dd-5187-4792-901d-d7b11f050204",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Vision",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b2e1d38-30c6-44b4-adc0-6f0f2db4dc61",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Vision",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
