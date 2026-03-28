@@ -1,6 +1,6 @@
 INCLUDE Globals.ink
 
-{all_clear(): //not all_clear():
+{not all_clear():
     Te quedan cosas por investigar, no deberías llamar aún a nadie.
     
 - else:
@@ -11,8 +11,8 @@ INCLUDE Globals.ink
             ->DONE
 
         
-        *[*Intentar reconstruir la escena del crimen* INT >= 4]
-        ~ChangeDetectiveVision()
+        *[*Intentar reconstruir la escena del crimen* INT >=4]
+        
             Notas como el mundo se ralentiza a tu alrededor. Sientes que eres capaz de esquivar las gotas de lluvia. Todo cobra una nueva dimensión, un nuevo significado. Aparecen un par de siluetas delante tuyo. #Speaker: Voz Interna #Portrait: voz_anim
             ->DONE
 }
