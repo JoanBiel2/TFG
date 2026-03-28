@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,18 +25,18 @@ public class DetectiveVision : MonoBehaviour
         {
             if (!renderers[i].CompareTag("Image"))
                 normalMaterial[i] = renderers[i].material;
-            else
-            {
-                Debug.Log("Material " + i + " es una imagen, se ignora.");
-            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        bool pressed = pi.actions["Vision"].IsPressed();
-        if (pressed)
+        if (pi.actions["Vision"].WasPressedThisFrame())
+        {
+            visionActive = !visionActive;
+            ChangeMaterials();
+        }
+        if (visionActive)
         {
             saturation = Mathf.Lerp(saturation, 0f, Time.deltaTime * 5);
         }
@@ -44,19 +45,26 @@ public class DetectiveVision : MonoBehaviour
             saturation = Mathf.Lerp(saturation, 1f, Time.deltaTime * 5);
         }
         blackwhite.SetFloat("_Saturation", saturation);
-
-        if (pressed != visionActive)
+    }
+    public bool ChangeVision()
+    {
+        visionActive = true;
+        ChangeMaterials();
+        Debug.Log("Vision changed");
+        return true;
+    }
+    public void ChangeMaterials()
+    {
+        if (renderers != null && renderers.Length > 0)
         {
-            visionActive = pressed;
-            if (renderers != null || renderers.Length > 0)
+            renderers = evidenceParent.GetComponentsInChildren<Renderer>();
+            for (int i = 0; i < renderers.Length; i++)
             {
-                for (int i = 0; i < renderers.Length; i++)
+                if (renderers[i].gameObject.CompareTag("Image") || normalMaterial[i] == null)
                 {
-                    if (renderers[i].gameObject.CompareTag("Image") || normalMaterial[i] == null)
-                        continue;
-
-                    renderers[i].material = visionActive ? evidence : normalMaterial[i];
+                    continue;
                 }
+                renderers[i].material = visionActive ? evidence : normalMaterial[i];
             }
         }
     }

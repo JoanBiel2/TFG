@@ -38,6 +38,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private CharacterInformation charinfo;
     private InventoryManager invman;
     private FadeToBlack fade;
+    private DetectiveVision vision;
 
     private DialogueVariables dialoguevariables;
     [SerializeField] private TextAsset loadglobalsJSON;
@@ -47,6 +48,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         charinfo = GameObject.Find("InventoryManager").GetComponent<CharacterInformation>();
         invman = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
         fade = GameObject.Find("FadeToBlack").GetComponent<FadeToBlack>();
+        vision = GameObject.Find("MainCamera").GetComponent<DetectiveVision>();
 
         if (instance != null)
         {
@@ -222,6 +224,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             StartCoroutine(fade.FadeOutFadein());
         });
+        currentstory.BindExternalFunction("ChangeDetectiveVision", () =>
+        {
+            vision.ChangeVision();
+        });
 
         ContinueStory();
 
@@ -238,6 +244,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         currentstory.UnbindExternalFunction("SearchEvidence");
         currentstory.UnbindExternalFunction("GiveEvidence");
         currentstory.UnbindExternalFunction("FadeToBlack");
+        currentstory.UnbindExternalFunction("ChangeDetectiveVision");
 
         dialoguevariables.StopListening(currentstory);
 

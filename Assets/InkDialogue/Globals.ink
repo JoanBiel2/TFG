@@ -1,3 +1,9 @@
+EXTERNAL GiveExp(exp)
+EXTERNAL SearchEvidence(name)
+EXTERNAL GiveEvidence(name,sprite,desc)
+EXTERNAL FadeToBlack()
+EXTERNAL ChangeDetectiveVision() //Función para cambiar a Vista detective
+EXTERNAL SpawnNPCCar()//Función para hacer aparecer a los dos NPC
 
 //Estadisticas personaje
 VAR strg = 2
@@ -15,3 +21,9 @@ VAR exam_coche = false
 
 //Sangre
 VAR exam_sangre = false
+
+//Finish
+VAR finish_exam = false
+
+=== function all_clear() ===
+~ return exp_cabeza && exp_torso && exp_manos && exp_piernas && exam_coche && exam_sangre
