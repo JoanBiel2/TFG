@@ -2,8 +2,9 @@ EXTERNAL GiveExp(exp)
 EXTERNAL SearchEvidence(name)
 EXTERNAL GiveEvidence(name,sprite,desc)
 EXTERNAL FadeToBlack()
-EXTERNAL ChangeDetectiveVision() //Función para cambiar a Vista detective
-EXTERNAL SpawnNPCCar()//Función para hacer aparecer a los dos NPC
+EXTERNAL ChangeDetectiveVisionOn()
+EXTERNAL ChangeDetectiveVisionOff()
+EXTERNAL SpawnNPCCar()
 
 //Estadisticas personaje
 VAR strg = 2

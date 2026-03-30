@@ -46,12 +46,15 @@ public class DetectiveVision : MonoBehaviour
         }
         blackwhite.SetFloat("_Saturation", saturation);
     }
-    public bool ChangeVision()
+    public void ChangeVisionOn()
     {
         visionActive = true;
         ChangeMaterials();
-        Debug.Log("Vision changed");
-        return true;
+    }
+    public void ChangeVisionOff()
+    {
+        visionActive = false;
+        ChangeMaterials();
     }
     public void ChangeMaterials()
     {

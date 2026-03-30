@@ -7,10 +7,6 @@ public class NPCInteract : MonoBehaviour
     private PlayerInput pi;
     private bool playernear = false;
 
-    [Header("Dailogue")]
-
-    //[SerializeField] private Dialogue dialogueManager;
-
     [Header("Visual Cue")]
     [SerializeField] private Renderer prompt; // Renderer del objeto visual
     [SerializeField] private Material keyboardMaterial;
@@ -24,7 +20,7 @@ public class NPCInteract : MonoBehaviour
     {
         pi = GameObject.Find("Player").GetComponentInChildren<PlayerInput>();
         prompt.gameObject.SetActive(false);
-        prompt.transform.localPosition = new Vector3(0, 2.5f, 0);
+        prompt.transform.localPosition = new Vector3(0, 4.8f, 0);
     }
 
     private void Update()
@@ -32,7 +28,6 @@ public class NPCInteract : MonoBehaviour
         if (playernear && pi.actions["Interact"].IsPressed())
         {
             Dialogue.GetInstance().EnterDialoguemod(jsonfile);
-
         }
     }
 

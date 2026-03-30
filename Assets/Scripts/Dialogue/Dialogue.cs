@@ -224,9 +224,13 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             StartCoroutine(fade.FadeOutFadein());
         });
-        currentstory.BindExternalFunction("ChangeDetectiveVision", () =>
+        currentstory.BindExternalFunction("ChangeDetectiveVisionOn", () =>
         {
-            vision.ChangeVision();
+            vision.ChangeVisionOn();
+        });
+        currentstory.BindExternalFunction("ChangeDetectiveVisionOff", () =>
+        {
+            vision.ChangeVisionOff();
         });
 
         ContinueStory();
@@ -244,7 +248,8 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         currentstory.UnbindExternalFunction("SearchEvidence");
         currentstory.UnbindExternalFunction("GiveEvidence");
         currentstory.UnbindExternalFunction("FadeToBlack");
-        currentstory.UnbindExternalFunction("ChangeDetectiveVision");
+        currentstory.UnbindExternalFunction("ChangeDetectiveVisionOn");
+        currentstory.UnbindExternalFunction("ChangeDetectiveVisionOff");
 
         dialoguevariables.StopListening(currentstory);
 
