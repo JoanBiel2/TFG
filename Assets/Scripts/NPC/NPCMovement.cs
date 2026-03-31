@@ -11,6 +11,7 @@ public class NPCMovement : MonoBehaviour
     private bool is_running;
     private Rigidbody rb;
     private float currentspeed;
+    private float dist;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -29,15 +30,18 @@ public class NPCMovement : MonoBehaviour
         animator.SetBool("IsRunning", is_running);
         currentspeed = agent.velocity.magnitude;
         animator.SetFloat("Speed", currentspeed);
-        Debug.Log("NPC Speed: " + currentspeed);
 
-        if (player.GetComponent<PlayerController>().isRunning())
+        dist = Vector3.Distance(transform.position, player.position);
+
+        if (dist >= 10)
         {
             is_running = true;
+            agent.speed = 15f;
         }
         else
         {
             is_running = false;
+            agent.speed = 5f;
         }
     }
 }

@@ -26,5 +26,9 @@ VAR exam_sangre = false
 //Finish
 VAR finish_exam = false
 
+//Colms
+VAR intro = false
+VAR investig = false
+
 === function all_clear() ===
 ~ return exp_cabeza && exp_torso && exp_manos && exp_piernas && exam_coche && exam_sangre
