@@ -44,7 +44,7 @@ La investigación preliminar ya está hecha. No se si has tenido tiempo de inves
         ->Continuacion3
 
 
-    *No interrumpir*
+    *\*No interrumpir*
         Esperabas que encontrarán el arma. Esto es un problema. Grave #Speaker: Voz Interna #Portrait: voz_anim
         ->Continuacion3
     
@@ -57,6 +57,12 @@ No tenemos ni pruebas sólidas ni testigos. La situación es muy desfavorable, p
 ->DONE
 
 === Investigacion ===
+~temp foundkey = SearchEvidence("Llave de Delgado")
+
 Has encontrado algo útil?
+
+*{foundkey} Esta llave
+
+
 ->DONE
 
