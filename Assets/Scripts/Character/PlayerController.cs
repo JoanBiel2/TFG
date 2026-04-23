@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour, DataPersistance
     {
         rb = GetComponent<Rigidbody>();
         pi = GetComponent<PlayerInput>();
-        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame

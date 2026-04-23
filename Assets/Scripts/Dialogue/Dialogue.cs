@@ -39,6 +39,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private InventoryManager invman;
     private FadeToBlack fade;
     private DetectiveVision vision;
+    private PlayerAnimations playeranim;
 
     private DialogueVariables dialoguevariables;
     [SerializeField] private TextAsset loadglobalsJSON;
@@ -49,6 +50,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         invman = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
         fade = GameObject.Find("FadeToBlack").GetComponent<FadeToBlack>();
         vision = GameObject.Find("MainCamera").GetComponent<DetectiveVision>();
+        playeranim = GameObject.Find("Player").GetComponentInChildren<PlayerAnimations>();
 
         if (instance != null)
         {
@@ -208,6 +210,18 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
 
         dialoguevariables.StartListening(currentstory);
 
+        BindingFunctions();
+
+        ContinueStory();
+
+        if (TryGetPlayerInput())
+        {
+
+            pi.SwitchCurrentActionMap("DialogueControl");
+        }
+    }
+    private void BindingFunctions()
+    {
         currentstory.BindExternalFunction("GiveExp", (int exp) =>
         {
             charinfo.AddExpItem(exp);
@@ -232,24 +246,19 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             vision.ChangeVisionOff();
         });
-
-        ContinueStory();
-
-        if (TryGetPlayerInput())
+        currentstory.BindExternalFunction("SittingDown", () =>
         {
-
-            pi.SwitchCurrentActionMap("DialogueControl");
-        }
+            playeranim.SitDown();
+        });
+        currentstory.BindExternalFunction("StandUp", () =>
+        {
+            playeranim.StandUp();
+        });
     }
 
     private void ExitDialogueMod()
     {
-        currentstory.UnbindExternalFunction("GiveExp");
-        currentstory.UnbindExternalFunction("SearchEvidence");
-        currentstory.UnbindExternalFunction("GiveEvidence");
-        currentstory.UnbindExternalFunction("FadeToBlack");
-        currentstory.UnbindExternalFunction("ChangeDetectiveVisionOn");
-        currentstory.UnbindExternalFunction("ChangeDetectiveVisionOff");
+        UnbindFunctions();
 
         dialoguevariables.StopListening(currentstory);
 
@@ -257,6 +266,18 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         dialoguepanel.SetActive(false);
         textcomponent.text = "";
         pi.SwitchCurrentActionMap("Player");
+    }
+
+    private void UnbindFunctions()
+    {
+        currentstory.UnbindExternalFunction("GiveExp");
+        currentstory.UnbindExternalFunction("SearchEvidence");
+        currentstory.UnbindExternalFunction("GiveEvidence");
+        currentstory.UnbindExternalFunction("FadeToBlack");
+        currentstory.UnbindExternalFunction("ChangeDetectiveVisionOn");
+        currentstory.UnbindExternalFunction("ChangeDetectiveVisionOff");
+        currentstory.UnbindExternalFunction("SittingDown");
+        currentstory.UnbindExternalFunction("StandUp");
     }
     public void StopDialogue()
     {
