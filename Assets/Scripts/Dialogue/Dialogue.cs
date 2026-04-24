@@ -196,7 +196,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     {
         if (currentstory != null)
         {
-            currentstory.variablesState["strg"] = charinfo.GetStr();
+            currentstory.variablesState["str"] = charinfo.GetStr();
             currentstory.variablesState["inte"] = charinfo.GetInte();
             currentstory.variablesState["refl"] = charinfo.GetRefl();
         }
@@ -228,7 +228,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         });
         currentstory.BindExternalFunction("LevelUP", (string stat) =>
         {
-            charinfo.LevelUp(stat);
+            charinfo.LevelUpBench(stat);
         });
         currentstory.BindExternalFunction("SearchEvidence", (string name) =>
         {

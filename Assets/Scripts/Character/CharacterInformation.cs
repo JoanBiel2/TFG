@@ -123,16 +123,19 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
                 case "str":
                     stats.str++;
                     strtext.text = "Strength: " + stats.str;
+                    Debug.Log("Strength increased to " + stats.str);
                     break;
 
                 case "inte":
                     stats.inte++;
                     inttext.text = "Intelligence: " + stats.inte;
+                    Debug.Log("Intelligence increased to " + stats.inte);   
                     break;
 
                 case "refl":
                     stats.refl++;
                     refltext.text = "Reflexes: " + stats.refl;
+                    Debug.Log("Reflexes increased to " + stats.refl);
                     break;
             }
             level.lvl++;
@@ -142,6 +145,34 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
             dialogue.UpdateStats();
         }
     }
+    public void LevelUpBench(string stat)
+    {
+        Debug.Log("Leveling up " + stat);
+        switch (stat)
+        {
+            case "str":
+                stats.str++;
+                strtext.text = "Strength: " + stats.str;
+                Debug.Log("Strength increased to " + stats.str);
+                break;
+
+            case "inte":
+                stats.inte++;
+                inttext.text = "Intelligence: " + stats.inte;
+                Debug.Log("Intelligence increased to " + stats.inte);
+                break;
+
+            case "refl":
+                stats.refl++;
+                refltext.text = "Reflexes: " + stats.refl;
+                Debug.Log("Reflexes increased to " + stats.refl);
+                break;
+        }
+        level.lvl++;
+        leveltext.text = "Level: " + level.lvl;
+        dialogue.UpdateStats();
+    }
+    
     public void AddExpItem(int expitem)
     {
         level.exp += expitem;

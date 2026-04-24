@@ -10,9 +10,13 @@ EXTERNAL SittingDown()
 EXTERNAL StandUp()
 
 //Estadisticas personaje
-VAR strg = 2
+VAR str = 2
 VAR inte = 3
 VAR refl = 3
+
+VAR str_string = "str"
+VAR inte_string = "inte"
+VAR refl_string = "refl"
 
 //Cadaver_Delgado
 VAR exp_cabeza = false
