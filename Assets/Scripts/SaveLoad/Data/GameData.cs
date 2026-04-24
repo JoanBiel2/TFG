@@ -13,6 +13,7 @@ public class GameData
     public int exp;
     public int lvl;
     public int points;
+    public int cap;
 
     public Vector3 playerpos;
 
@@ -37,6 +38,7 @@ public class GameData
         this.points = 0;
         this.lvl = 1;
         this.exp = 0;
+        this.cap = 100;
 
         this.playerpos = new Vector3(0, 1f, 0); //Poner posición inicial
 

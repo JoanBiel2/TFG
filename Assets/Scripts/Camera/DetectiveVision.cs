@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class DetectiveVision : MonoBehaviour
 {
     private PlayerInput pi;
-    private float saturation = 1f;
+    private float saturation = 1.2f;
     public Material blackwhite;
     public Material evidence;
     public GameObject evidenceParent;
@@ -42,7 +42,7 @@ public class DetectiveVision : MonoBehaviour
         }
         else
         {
-            saturation = Mathf.Lerp(saturation, 1f, Time.deltaTime * 5);
+            saturation = Mathf.Lerp(saturation, 1.2f, Time.deltaTime * 5);
         }
         blackwhite.SetFloat("_Saturation", saturation);
     }

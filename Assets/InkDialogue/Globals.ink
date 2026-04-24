@@ -1,4 +1,5 @@
 EXTERNAL GiveExp(exp)
+EXTERNAL LevelUP(stat)
 EXTERNAL SearchEvidence(name)
 EXTERNAL GiveEvidence(name,sprite,desc)
 EXTERNAL FadeToBlack()
@@ -6,6 +7,7 @@ EXTERNAL ChangeDetectiveVisionOn()
 EXTERNAL ChangeDetectiveVisionOff()
 EXTERNAL SpawnNPCCar()
 EXTERNAL SittingDown()
+EXTERNAL StandUp()
 
 //Estadisticas personaje
 VAR strg = 2

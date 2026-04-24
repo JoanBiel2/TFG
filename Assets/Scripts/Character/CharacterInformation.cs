@@ -67,7 +67,14 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
         refltext.text = "Reflexes: " + stats.refl;
         leveltext.text = "Level: " + level.lvl;
         points.text = "Avaiable Points: " + level.points;
-        expfill.fillAmount = (float)level.exp / (float)level.cap;
+        float ratio = 0f;
+
+        if (level.cap > 0)
+        {
+            ratio = (float)level.exp / level.cap;
+        }
+
+        expfill.fillAmount = Mathf.Clamp01(ratio);
     }
 
     public void LoadData(GameData data)
@@ -78,6 +85,7 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
         this.level.exp = data.exp;
         this.level.lvl = data.lvl;
         this.level.points = data.points;
+        this.level.cap = data.cap;
 
         WriteStats();
     }
@@ -90,6 +98,7 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
         data.exp = this.level.exp;
         data.lvl = this.level.lvl;
         data.points = this.level.points;
+        data.cap = this.level.cap;
     }
 
     public int GetStr()
@@ -136,7 +145,14 @@ public class CharacterInformation : MonoBehaviour, DataPersistance
     public void AddExpItem(int expitem)
     {
         level.exp += expitem;
-        expfill.fillAmount = (float)level.exp / (float)level.cap;
+        float ratio = 0f;
+
+        if (level.cap > 0)
+        {
+            ratio = (float)level.exp / level.cap;
+        }
+
+        expfill.fillAmount = Mathf.Clamp01(ratio);
 
     }
 }

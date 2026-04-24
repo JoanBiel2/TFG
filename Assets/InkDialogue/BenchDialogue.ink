@@ -8,7 +8,8 @@ Un banco… Tienes unas ganas terribles de descansar. Ha sido una noche larga, l
         ->Banco2
     *[No, tengo que continuar]
         No viene mal parar de vez en cuando para reflexionar. Vuelve cuando quieras mirarte en el espejo.
-
+        
+        ->Levantarse1
     
     === Banco2 ===
     ¿Y bien? ¿En qué estás pensando? Tiene gracia que yo diga eso, pero enserio, ¿Que te pasa?
@@ -22,7 +23,9 @@ Un banco… Tienes unas ganas terribles de descansar. Ha sido una noche larga, l
     ->Banco3
     
     *[(Nada, estoy perdiendo el tiempo) *Levantarse*]
-    No estás bien. Tienes que enfrentarte a ti mismo de vez en cuando. Vuelve cuando estés listo
+    No estás bien. Tienes que enfrentarte a ti mismo de vez en cuando. Vuelve cuando estés listo.
+    
+    ->Levantarse1
     
     === Banco3 ===
     ¿Qué es lo que quieres conseguir?
@@ -44,7 +47,27 @@ Un banco… Tienes unas ganas terribles de descansar. Ha sido una noche larga, l
         ->DecisionStat
     
     === DecisionStat ===
-        AAA
+        *[(Tengo que ser fuerte. Necesito aguantar todo lo que me echen)]
+            Fuerza. Siempre has sido alguien fuerte, tanto física como mentalmente. Esa fuerza te llevará a donde desees.
+            
+            //~LevelUP(strg)
+            ->Levantarse2
+        *[(Ser más inteligente. Necesito ser capaz de entender todo lo relacionado con el caso)]
+            Inteligencia. Siempre has sido alguien curioso, te devanas los sesos con cualquier tontería. Esa inteligencia te conducirá a la verdad.
+            
+            //~LevelUP(inte)
+            ->Levantarse2
+        *[(Velocidad. Tengo que encontrar rápido al asesino, y no dejar que se escape)]
+            Velocidad, el sueño de todo aventurero. Esa sensación que tenías cuando eras joven, la que te obliga moverte, actuar, a ser cinético. Gracias a esa velocidad, superarás todos los obstáculos.
+            
+            //~LevelUP(refl)
+            ->Levantarse2
     
-    === Levantarse ===
-        AAA
+    === Levantarse1 ===
+        ~StandUp()
+        ->DONE
+        
+    === Levantarse2 ===
+    Ya has hecho las paces contigo mismo. No puedes curarte, pero puedes arreglarte con los restos que has encontrado. Ahora, sal y haz tu trabajo. Es lo que Gabriel hubiese querido.
+        ~StandUp()
+        ->DONE

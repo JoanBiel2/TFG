@@ -226,6 +226,10 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
         {
             charinfo.AddExpItem(exp);
         });
+        currentstory.BindExternalFunction("LevelUP", (string stat) =>
+        {
+            charinfo.LevelUp(stat);
+        });
         currentstory.BindExternalFunction("SearchEvidence", (string name) =>
         {
             return invman.SearchEvidence(name);
@@ -271,6 +275,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     private void UnbindFunctions()
     {
         currentstory.UnbindExternalFunction("GiveExp");
+        currentstory.UnbindExternalFunction("LevelUP");
         currentstory.UnbindExternalFunction("SearchEvidence");
         currentstory.UnbindExternalFunction("GiveEvidence");
         currentstory.UnbindExternalFunction("FadeToBlack");
