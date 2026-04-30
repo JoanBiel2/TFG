@@ -11,6 +11,7 @@ public class NPCInteract : MonoBehaviour
     [SerializeField] private Renderer prompt; // Renderer del objeto visual
     [SerializeField] private Material keyboardMaterial;
     [SerializeField] private Material gamepadMaterial;
+    public float distancepropmt;
 
     [Header("Ink JSON")]
     [SerializeField] private TextAsset jsonfile;
@@ -20,7 +21,7 @@ public class NPCInteract : MonoBehaviour
     {
         pi = GameObject.Find("Player").GetComponentInChildren<PlayerInput>();
         prompt.gameObject.SetActive(false);
-        prompt.transform.localPosition = new Vector3(0, 4.8f, 0);
+        prompt.transform.localPosition = new Vector3(0, distancepropmt, 0);
     }
 
     private void Update()

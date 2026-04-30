@@ -3,17 +3,27 @@ using UnityEngine;
 public class PlayerAnimations : MonoBehaviour
 {
     public Animator animator;
+    private CharacterController cc;
+    private PlayerController playerController;
+
+    private void Awake()
+    {
+        cc = GetComponent<CharacterController>();
+        playerController = GetComponent<PlayerController>();
+    }
 
     public void SitDown()
     {
         animator.Play("SittingDown");
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-        gameObject.transform.position = gameObject.transform.position + new Vector3(0, 0, 1);
+        playerController.enabled = false;
+        transform.rotation = Quaternion.Euler(0, 180, 0);
+        transform.position += new Vector3(0, 0, 1);
     }
+
     public void StandUp()
     {
         animator.Play("StandUp");
-        gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        playerController.enabled = true;
     }
 }
+
