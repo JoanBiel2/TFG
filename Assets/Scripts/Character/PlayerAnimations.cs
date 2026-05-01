@@ -11,7 +11,6 @@ public class PlayerAnimations : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         playerController = GetComponent<PlayerController>();
-        //StartCoroutine(RubShoulder());
     }
 
     public void SitDown()
@@ -27,15 +26,5 @@ public class PlayerAnimations : MonoBehaviour
         animator.Play("StandUp");
         playerController.enabled = true;
     }
-
-    /*private IEnumerator RubShoulder()
-    {
-        while (true)
-        {
-            int cooldown = Random.Range(20, 30);
-            yield return new WaitForSeconds(cooldown);
-            animator.Play("ShoulderRubbing");
-        }
-    }*/
 }
 
