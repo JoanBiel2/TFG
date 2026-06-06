@@ -163,6 +163,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeCamera"",
+                    ""type"": ""Button"",
+                    ""id"": ""1decd41c-1d61-4039-8cba-2df40facc574"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -418,6 +427,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Vision"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d6c3aca-c16b-4584-ac11-20b896e86f29"",
+                    ""path"": ""<Keyboard>/alt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c11fa3c0-2719-4627-bd3c-b66c12b1a570"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -604,6 +635,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_ZoomIn = m_Player.FindAction("ZoomIn", throwIfNotFound: true);
         m_Player_ZoomOut = m_Player.FindAction("ZoomOut", throwIfNotFound: true);
         m_Player_Vision = m_Player.FindAction("Vision", throwIfNotFound: true);
+        m_Player_ChangeCamera = m_Player.FindAction("ChangeCamera", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
@@ -701,6 +733,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ZoomIn;
     private readonly InputAction m_Player_ZoomOut;
     private readonly InputAction m_Player_Vision;
+    private readonly InputAction m_Player_ChangeCamera;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -744,6 +777,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Vision".
         /// </summary>
         public InputAction @Vision => m_Wrapper.m_Player_Vision;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/ChangeCamera".
+        /// </summary>
+        public InputAction @ChangeCamera => m_Wrapper.m_Player_ChangeCamera;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -794,6 +831,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Vision.started += instance.OnVision;
             @Vision.performed += instance.OnVision;
             @Vision.canceled += instance.OnVision;
+            @ChangeCamera.started += instance.OnChangeCamera;
+            @ChangeCamera.performed += instance.OnChangeCamera;
+            @ChangeCamera.canceled += instance.OnChangeCamera;
         }
 
         /// <summary>
@@ -829,6 +869,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Vision.started -= instance.OnVision;
             @Vision.performed -= instance.OnVision;
             @Vision.canceled -= instance.OnVision;
+            @ChangeCamera.started -= instance.OnChangeCamera;
+            @ChangeCamera.performed -= instance.OnChangeCamera;
+            @ChangeCamera.canceled -= instance.OnChangeCamera;
         }
 
         /// <summary>
@@ -1193,6 +1236,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnVision(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "ChangeCamera" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnChangeCamera(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

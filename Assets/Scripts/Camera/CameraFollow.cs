@@ -17,12 +17,16 @@ public class CameraFollow : MonoBehaviour
     private float minzoom = 10f;
     private float maxzoom = 20f;
     private float maxdist = 30f;
+    private bool followPlayer = false;
 
     [SerializeField] private Transform player;
     [SerializeField] private InputActionReference cameramoveinput; // Para mover la camara con el stick derecho
     [SerializeField] private InputActionReference camerazoomin; // Hace el zoom con el d-pad del mando
     [SerializeField] private InputActionReference camerazoomout; // Hace el zoom con el d-pad del mando
+    [SerializeField] private InputActionReference followPlayerAction;
     [SerializeField] private float controllerdragspeed;
+
+    private Vector3 followOffset;
 
     private enum ZoomDevice
     {
@@ -32,10 +36,46 @@ public class CameraFollow : MonoBehaviour
     }
     private ZoomDevice lastzoomdevice = ZoomDevice.None;
 
-
+    private void Start()
+    {
+        followOffset = transform.position - player.position;
+    }
     private void Awake()
     {
         _maincam = Camera.main; //Setea la camara
+    }
+
+    private void Update()
+    {
+        if (followPlayerAction.action.WasPressedThisFrame())
+        {
+            followPlayer = !followPlayer;
+        }
+    }
+
+    public void OnToggleFollow(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            followPlayer = !followPlayer;
+        }
+    }
+
+    public void FixedCamera()
+    {
+        Vector3 targetPos = transform.position;
+
+        targetPos.x = player.position.x + followOffset.x;
+        targetPos.z = player.position.z + followOffset.z;
+
+        // Mantiene la altura actual
+        targetPos.y = transform.position.y;
+
+        transform.position = Vector3.Lerp(
+            transform.position,
+            targetPos,
+            Time.deltaTime * 5f
+        );
     }
 
     public void OnDrag(InputAction.CallbackContext ctx)
@@ -48,7 +88,11 @@ public class CameraFollow : MonoBehaviour
     {
         HandleZoom();
 
-        if (is_dragging)
+        if (followPlayer)
+        {
+            FixedCamera();
+        }
+        else if (is_dragging)
         {
             _diff = GetMousePosition() - transform.position;
             Vector3 targetPos = _origin - _diff;
@@ -60,7 +104,7 @@ public class CameraFollow : MonoBehaviour
             HandleControlDrag();
         }
 
-            ClampDistanceToPlayer();
+        ClampDistanceToPlayer();
     }
     private void HandleControlDrag() //Se encarga del movimiento de la camara del mando
     {
@@ -125,8 +169,6 @@ public class CameraFollow : MonoBehaviour
             transform.position = pos;
         }
     }
-
-
 
     private void ClampDistanceToPlayer()
     {
