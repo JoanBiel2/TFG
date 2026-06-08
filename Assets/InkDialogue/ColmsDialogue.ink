@@ -1,6 +1,6 @@
 INCLUDE Globals.ink
 
-{intro == false:
+{intro_colms == false:
     ->Intro
 }
 {investig == false:
@@ -52,7 +52,7 @@ La investigación preliminar ya está hecha. No se si has tenido tiempo de inves
 === Continuacion3 ===
 No tenemos ni pruebas sólidas ni testigos. La situación es muy desfavorable, pero no hay que rendirse. Podemos investigar más la escena del crimen, o, si tienes que ir a algún lado, puedo acompañarte. Ellos dos se quedarán vigilando la escena del crimen. #Speaker: Colms #Portrait: colms_anim
 
-~intro = true
+~intro_colms = true
 
 ->DONE
 

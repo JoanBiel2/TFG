@@ -17,6 +17,11 @@ public class CameraFollow : MonoBehaviour
     private float minzoom = 10f;
     private float maxzoom = 20f;
     private float maxdist = 30f;
+    private float minZoomZ = -4f;
+    private float maxZoomZ = -12f;
+    private bool zoomAffectsZ;
+
+    private float targetZoom;
     private bool followPlayer = false;
 
     [SerializeField] private Transform player;
@@ -39,6 +44,7 @@ public class CameraFollow : MonoBehaviour
     private void Start()
     {
         followOffset = transform.position - player.position;
+        targetZoom = transform.position.y;
     }
     private void Awake()
     {
@@ -64,9 +70,17 @@ public class CameraFollow : MonoBehaviour
     public void FixedCamera()
     {
         Vector3 targetPos = transform.position;
+        zoomAffectsZ = followPlayer;
 
         targetPos.x = player.position.x + followOffset.x;
-        targetPos.z = player.position.z + followOffset.z;
+        if (followPlayer)
+        {
+            targetPos.z = player.position.z+ 5f + followOffset.z;
+        }
+        else
+        {
+            targetPos.z = player.position.z + followOffset.z;
+        }
 
         // Mantiene la altura actual
         targetPos.y = transform.position.y;
@@ -152,22 +166,34 @@ public class CameraFollow : MonoBehaviour
         // Zona muerta
         if (Mathf.Abs(zoominput) > 0.01f)
         {
-            float zoomspeed;
+            float zoomspeed = lastzoomdevice == ZoomDevice.Gamepad
+                ? zoomspeedpad
+                : zoomspeedmouse;
 
-            if (lastzoomdevice == ZoomDevice.Gamepad)
-            {
-                zoomspeed = zoomspeedpad;
-            }
-            else
-            {
-                zoomspeed = zoomspeedmouse;
-            }
-
-            Vector3 pos = transform.position;
-            pos.y -= zoominput * zoomspeed * Time.deltaTime;
-            pos.y = Mathf.Clamp(pos.y, minzoom, maxzoom);
-            transform.position = pos;
+            targetZoom -= zoominput * zoomspeed;
+            targetZoom = Mathf.Clamp(targetZoom, minzoom, maxzoom);
         }
+
+        Vector3 pos = transform.position;
+
+        // Zoom vertical
+        pos.y = Mathf.Lerp(pos.y, targetZoom, 10f * Time.deltaTime);
+
+        // Zoom en Z solo cuando sigue al jugador
+        if (zoomAffectsZ)
+        {
+            float zoomT = Mathf.InverseLerp(minzoom, maxzoom, targetZoom);
+
+            float targetZOffset = Mathf.Lerp(minZoomZ, maxZoomZ, zoomT);
+
+            pos.z = Mathf.Lerp(
+                pos.z,
+                player.position.z + targetZOffset,
+                10f * Time.deltaTime
+            );
+        }
+
+        transform.position = pos;
     }
 
     private void ClampDistanceToPlayer()
