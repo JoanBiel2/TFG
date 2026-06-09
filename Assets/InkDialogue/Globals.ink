@@ -44,5 +44,8 @@ VAR sat = false
 VAR intro_amaram = false
 VAR sara_subtram = false
 
+//Locker
+VAR pistol_obt = false
+
 === function all_clear() ===
 ~ return exp_cabeza && exp_torso && exp_manos && exp_piernas && exam_coche && exam_sangre

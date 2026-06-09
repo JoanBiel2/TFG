@@ -1,7 +1,8 @@
-using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
 {
@@ -54,7 +55,12 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
         itemSelected = true;
         ItemDesciptionNameText.text = itemname;
         ItemDesciptionText.text = itemdesc;
-        itemDescriptionimage.sprite = itemsprite;
-
+        if (itemname == "") {
+            Debug.Log("No hay objeto en este slot");
+            itemDescriptionimage.sprite = Resources.Load<Sprite>("UI/PNG/PanelWindow");
+        }
+        else {
+            itemDescriptionimage.sprite = itemsprite;
+        }
     }
 }
