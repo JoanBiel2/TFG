@@ -25,6 +25,7 @@ public class PlayerAnimations : MonoBehaviour
     {
         animator.Play("StandUp");
         playerController.enabled = true;
+        transform.position += new Vector3(0, 0, -0.5f);
     }
 }
 

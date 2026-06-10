@@ -44,7 +44,7 @@ Hizo unos juramentos, y los cumplió hasta el amargo final. No dejes que eso te 
 === Levantar_cuerpo ===
 Deckard pone una mano en la zona de los cuádriceps del cadáver, y otra en la espalda, y levanta con todas sus fuerzas.
 {str > 2:
-    ~GiveExp(25)
+    ~GiveExp(50)
     ~GiveEvidence("Llave de Delgado","Llave","Llave que tenía Delgado en el bolsillo. No sabes qué abre.")
     Consigue desplazar el cuerpo al asiento del medio, y deja visible el sitio donde estaba antes el cuerpo. #Speaker: Voz Interna #Portrait: voz_anim
     

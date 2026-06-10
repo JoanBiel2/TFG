@@ -4,7 +4,7 @@ INCLUDE Globals.ink
     ->Locker
     
 -else:
-    No hay nada más que te puedas llevar de interés.
+    No hay nada más que te puedas llevar de interés. #Speaker: Voz Interna #Portrait: voz_anim
 }
 
 === Locker ===
@@ -16,6 +16,7 @@ Bingo. Veamos lo que tenemos por aquí… Puedes ver tu arma reglamentaría junt
 
 Sacas la pistola, la limpias un poco, y la guardas en tu cartuchera.#Speaker: Voz Interna #Portrait: voz_anim
 
+~GiveExp(50)
 ~GiveEvidence("Pistola", "Pistola", "Tu pistola de servicio. No lo parece por lo compacta que es pero este bicho de casi 1 kg te pesa en la mano. Viene con dos cargadores completos.")
 
 ~pistol_obt = true

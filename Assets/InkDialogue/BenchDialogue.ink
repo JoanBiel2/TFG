@@ -83,6 +83,7 @@ Un banco… Tienes unas ganas terribles de descansar. Ha sido una noche larga, l
     === Levantarse2 ===
     Ya has hecho las paces contigo mismo. No puedes curarte, pero puedes arreglarte con los restos que has encontrado. Ahora, sal y haz tu trabajo. Es lo que Gabriel hubiese querido. #Speaker: Voz Interna #Portrait: voz_anim
         ~StandUp()
+        ~sat = true 
         ->DONE
     
     === Sat ===

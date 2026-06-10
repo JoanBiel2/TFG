@@ -4,9 +4,13 @@ INCLUDE Globals.ink
 {intro_amaram == false:
     ->Intro_Amaram
 
+{revised == true:
+    ->AmaramKey
+
 - else:
     Vamos, deja de molestarme y vete de aquí. Habla con Colms y resolved el asesinato de Gabriel. #Speaker: Amaram #Portrait: amaram_anim
 }
+
 === Intro_Amaram ===
 En el interior de la oficina, Amaram está sentado en su escritorio escribiendo algo en su ordenador. Alza la mirada hacia ti. #Speaker: Voz Interna #Portrait: voz_anim
 

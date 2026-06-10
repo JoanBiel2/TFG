@@ -12,3 +12,4 @@ Nada. Después de revisar toda la fila de coches, no has encontrado nada. Es pro
 }
 
 ~exam_coche = true
+->DONE

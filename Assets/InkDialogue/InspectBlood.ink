@@ -10,3 +10,4 @@ Si tuvieras algo para guardarla, lograrias mandarla a analizar, y eso puede darn
 - else:
 Jamás en tu vida habías visto tanta sangre. El olor es muy intenso; busca en otra parte.
 }
+->DONE
