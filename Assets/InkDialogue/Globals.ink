@@ -43,12 +43,15 @@ VAR sat = false
 //Amaram
 VAR intro_amaram = false
 VAR sara_subtram = false
+VAR EnEspera = false
+VAR final_amaram = false
 
 //Locker
 VAR pistol_obt = false
 
 //LockerDelgado
 VAR revised = false
+VAR revisedkey = false
 
 === function all_clear() ===
 ~ return exp_cabeza && exp_torso && exp_manos && exp_piernas && exam_coche && exam_sangre
