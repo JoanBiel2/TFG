@@ -1,22 +1,22 @@
 INCLUDE Globals.ink
 
 
-{final_amaram == true:
-    Vamos, deja de molestarme y vete de aquí. Habla con Colms y resolved el asesinato de Gabriel. #Speaker: Amaram #Portrait: amaram_anim
+{intro_amaram == false:
+    ->Intro_Amaram
 }
-
+{final_amaram == true:
+    ->Final
+}
+{keygiven == true:
+    ->Comprobacion
+}
 {EnEspera == true:
     ->Continuacion4
 }
-
 {revised == true:
     ->AmaramKey
-}
-
-{intro_amaram == false:
-    ->Intro_Amaram
-
--else:
+    
+-else: 
     Vamos, deja de molestarme y vete de aquí. Habla con Colms y resolved el asesinato de Gabriel. #Speaker: Amaram #Portrait: amaram_anim
 }
 
@@ -88,14 +88,19 @@ Amaram abre un cajón de su escritorio, y te da la llave. #Speaker: Voz Interna 
 ~GiveExp(25)
 ~GiveEvidence("Llave maestra","LlaveMaestra","Llave que abre las taquillas de la comisaría La mayoría de las veces que se usa es para abrir las taquillas de los oficiales despitados que se olvidan de la combinación del candado.")
  
+ ~keygiven = true
+ ->Comprobacion
+ 
+=== Comprobacion ===
 {inte >= 3:
     ->Continuacion4
     
 -else:
+ Vamos, deja de molestarme y vete de aquí. Habla con Colms y resolved el asesinato de Gabriel. #Speaker: Amaram #Portrait: amaram_anim
     ->DONE
     
 }
-    === Continuacion4 ===
+=== Continuacion4 ===
     Vaya, ha sido muy fácil, ¿no crees? Hay algo raro en el comisario. Normalmente no estaría dispuesto a algo así. Es probable que el mismo tenga sus propias sospechas sobre el caso. Es arriesgado, pero deberías preguntarle al respecto. #Speaker: Voz Interna #Portrait: voz_anim
     
     * [“¿Qué me estás ocultando, Amaram?”]
@@ -119,6 +124,9 @@ Amaram abre un cajón de su escritorio, y te da la llave. #Speaker: Voz Interna 
         Sospecho que el asesino es alguno de los oficiales de la comisaría. Tranquilo, no sospecho de ti ni de Colms, por eso os he encargado el caso a vosotros. Si quieres indagar más, necesito el informe que me estaba preparando Delgado sobre un caso muy confidencial que estaba investigando.#Speaker: Amaram #Portrait: amaram_anim
         
         Un movimiento sagaz, ha sido un éxito absoluto. Bien hecho. #Speaker: Voz Interna #Portrait: voz_anim
+        ~GiveExp(100)
+        ~GiveEvidence("Identidad del asesino","IdentidadAsesino","El principal sospechoso es uno de los oficiales de la comisaría")
+        ~final_amaram = true
         ->Final
         
     *[“¡Han asesinado a un inspector de policía! ¡A mi compañero! Voy a mover cielo y tierra para encontrar al hijo de puta que ha hecho esto. Necesito esa información, Amaram”]
@@ -132,13 +140,13 @@ Amaram abre un cajón de su escritorio, y te da la llave. #Speaker: Voz Interna 
         Sospecho que el asesino es alguno de los oficiales de la comisaría. Tranquilo, no sospecho de ti ni de Colms, por eso os he encargado el caso a vosotros. Si quieres indagar más, necesito el informe que me estaba preparando Delgado sobre un caso muy confidencial que estaba investigando. #Speaker: Amaram #Portrait: amaram_anim
         
         La técnica ha sido nefasta, pero has obtenido lo que necesitabas. Bravo.#Speaker: Voz Interna #Portrait: voz_anim
+        ~GiveExp(100)
+        ~GiveEvidence("Identidad del asesino","IdentidadAsesino","El principal sospechoso es uno de los oficiales de la comisaría")
+        ~final_amaram = true
         ->Final
         
         === Final ===
         Ya he cantado todo lo que sé. Ahora te toca a ti Deckard, encuentra al culpable, confío en ti.#Speaker: Amaram #Portrait: amaram_anim
-        ~GiveExp(100)
-        ~GiveEvidence("Identidad del asesino","IdentidadAsesino","El principal sospechoso es uno de los oficiales de la comisaría")
-        ~final_amaram = true
         
         ->DONE
 
