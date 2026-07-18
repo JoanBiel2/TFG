@@ -62,10 +62,12 @@ No tenemos ni pruebas sólidas ni testigos. La situación es muy desfavorable, p
 Has encontrado algo útil? #Speaker: Colms #Portrait: colms_anim
 
 *{foundkey}[Esta llave]
-    OOO
+    ¿Esa llave estaba en su cuerpo? #Speaker: Colms #Portrait: colms_anim
+
+    Puede ser que abra su taquilla en la comisaría, o quizás alguna caja fuerte en su apartamento. #Speaker: Colms #Portrait: colms_anim
     ->DONE
 
 *[De momento nada mas]
-    AAA
+    Entendido. Sigamos buscando.
     ->DONE
 
