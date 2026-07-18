@@ -134,6 +134,7 @@ public class InventoryManager : MonoBehaviour, DataPersistance
                 return;
             }
         }
+        DataManager.instance.SaveGame();
     }
     private System.Collections.IEnumerator FadeOut()
     {

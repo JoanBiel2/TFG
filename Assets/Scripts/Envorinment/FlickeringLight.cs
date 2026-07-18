@@ -45,7 +45,6 @@ public class FlickeringLight : MonoBehaviour
                 if (flickerParticles != null)
                 {
                     flickerParticles.Play();
-                    Debug.Log("AA");
                 }   
                 timer += flickerSpeed;
                 yield return new WaitForSeconds(flickerSpeed);

@@ -2185,7 +2185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3811850419549373807, guid: e1b3dcfd5c2d41540b374f4a9e342f6e, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3916869808749380175, guid: e1b3dcfd5c2d41540b374f4a9e342f6e, type: 3}
       propertyPath: m_Pivot.x
@@ -2273,7 +2273,7 @@ PrefabInstance:
       objectReference: {fileID: 1667454776}
     - target: {fileID: 4873467829944878255, guid: e1b3dcfd5c2d41540b374f4a9e342f6e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5019524064715405713, guid: e1b3dcfd5c2d41540b374f4a9e342f6e, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2289,7 +2289,7 @@ PrefabInstance:
       objectReference: {fileID: 778518872}
     - target: {fileID: 7191873092434174854, guid: e1b3dcfd5c2d41540b374f4a9e342f6e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

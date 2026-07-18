@@ -74,7 +74,7 @@ public class DataManager : MonoBehaviour
     {
         SaveGame();
     }
-    private List<DataPersistance> FindDataPersostance()
+    private List<DataPersistance> FindDataPersistance()
     {
         IEnumerable<DataPersistance> datapersistancelist =
          FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
@@ -85,7 +85,7 @@ public class DataManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        datapersistancelist = FindDataPersostance();
+        datapersistancelist = FindDataPersistance();
 
         if (shouldLoadGame)
         {

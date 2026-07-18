@@ -102396,7 +102396,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: d89b8a2655319974380f4bcb2160c66a, type: 3}
     - target: {fileID: 7186789405151266654, guid: 157251ec860b0c642a42e3490324db72, type: 3}
       propertyPath: xpgiven
-      value: 2555
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 7186789405151266654, guid: 157251ec860b0c642a42e3490324db72, type: 3}
       propertyPath: evidencename

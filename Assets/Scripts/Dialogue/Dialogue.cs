@@ -161,7 +161,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
             string[] splitTag = tag.Split(':');
             if (splitTag.Length != 2)
             {
-                Debug.LogError("La has cagado en alguna tag");
+                Debug.LogError("Tag incorrecta");
             }
             string tagKey = splitTag[0].Trim(); //Quita los possibles espacios en blanco
             string tagValue = splitTag[1].Trim();
@@ -294,6 +294,7 @@ public class Dialogue : MonoBehaviour, IPointerClickHandler
     {
         dialogueplaying = true;
         dialoguepanel.SetActive(true);
+        HandleTags(currentstory.currentTags);
     }
 
     //Avanzar el dialogo con el click izquierdo (El botón de Next se hace desde los eventos en el inspector)

@@ -27,7 +27,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler, ISelectHandler
     {
         inventorymanager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
     }
-    public void AddItem(string name, Sprite sprite, string desc) //lo del mesh tiene que estar vinculado a un Sprite
+    public void AddItem(string name, Sprite sprite, string desc)
     {
         this.itemname = name;
         this.itemsprite = sprite;
